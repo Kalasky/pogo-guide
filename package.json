@@ -1,0 +1,12 @@
+{
+  "name": "pogo-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
