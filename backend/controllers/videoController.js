@@ -34,13 +34,13 @@ const getSingleVideo = async (req, res) => {
 
 // create a video
 const createVideo = async (req, res) => {
-  const { title, description, difficulty, url } = req.body
+  const { title, description, difficulty, video } = req.body
   try {
     const newVideo = await Video.create({
       title,
       description,
       difficulty,
-      url,
+      video,
     })
     res.json(newVideo)
   } catch (e) {
@@ -52,7 +52,6 @@ const createVideo = async (req, res) => {
 // update a video
 const updateVideo = async (req, res) => {
   const { id } = req.params
-  const { title, description, difficulty, url } = req.body
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: "Video not found!" })
