@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 
+// components
+import VideoDetails from '../components/VideoDetails'
+
 const Home = () => {
   const [videos, setVideos] = useState(null)
   useEffect(() => {
@@ -22,16 +25,7 @@ const Home = () => {
     <div className="home">
       <h1>Home</h1>
       <div className="videos">
-        {videos &&
-          videos.map((video) => (
-            <div key={video._id}>
-              <h2>
-                {video.title} {video.difficulty}
-              </h2>
-              <p>{video.description}</p>
-              <video src={video.video + '#t=0.1'} controls />
-            </div>
-          ))}
+        {videos && videos.map((video) => <VideoDetails key={video._id} video={video} />)}
       </div>
     </div>
   )
