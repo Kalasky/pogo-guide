@@ -1,5 +1,5 @@
-const Video = require("../models/video")
-const mongoose = require("mongoose")
+const Video = require('../models/video')
+const mongoose = require('mongoose')
 
 // get all videos
 const getAllVideos = async (req, res) => {
@@ -18,14 +18,14 @@ const getSingleVideo = async (req, res) => {
     const { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(404).json({ message: "Video not found!" })
+      return res.status(404).json({ message: 'Video not found!' })
     }
 
     const video = await Video.findById(id)
     if (video) {
       return res.json(video)
     }
-    res.status(404).json({ message: "Video not found!" })
+    res.status(404).json({ message: 'Video not found!' })
   } catch (e) {
     console.log(e)
     res.status(500).json({ error: e.message })
@@ -35,6 +35,29 @@ const getSingleVideo = async (req, res) => {
 // create a video
 const createVideo = async (req, res) => {
   const { title, description, difficulty, video } = req.body
+
+  let emptyFields = []
+
+  if (!title) {
+    emptyFields.push('title')
+  }
+
+  if (!description) {
+    emptyFields.push('description')
+  }
+
+  if (!difficulty) {
+    emptyFields.push('difficulty')
+  }
+
+  if (!video) {
+    emptyFields.push('video')
+  }
+
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+  }
+
   try {
     const newVideo = await Video.create({
       title,
@@ -54,13 +77,13 @@ const updateVideo = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ message: "Video not found!" })
+    return res.status(404).json({ message: 'Video not found!' })
   }
 
   const video = await Video.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
 
   if (!video) {
-    return res.status(404).json({ message: "Video not found!" })
+    return res.status(404).json({ message: 'Video not found!' })
   }
 
   res.json(video)
@@ -71,16 +94,16 @@ const deleteVideo = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ message: "Video not found!" })
+    return res.status(404).json({ message: 'Video not found!' })
   }
 
   const video = await Video.findByIdAndRemove({ _id: id })
 
   if (!video) {
-    return res.status(404).json({ message: "Video not found!" })
+    return res.status(404).json({ message: 'Video not found!' })
   }
 
-  res.json({ message: "Video deleted!" })
+  res.json({ message: 'Video deleted!' })
 }
 
 // export the controller
