@@ -10,6 +10,7 @@ const VideoForm = () => {
   const [video, setVideo] = useState('')
   const [description, setDescription] = useState('')
   const [error, setError] = useState(null)
+  const [emptyFields, setEmptyFields] = useState([])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -27,7 +28,9 @@ const VideoForm = () => {
 
       if (!res.ok) {
         setError(json.error)
+        setEmptyFields(json.emptyFields)
       }
+
       if (res.ok) {
         setTitle('')
         setDifficulty('')
@@ -35,7 +38,9 @@ const VideoForm = () => {
         setDescription('')
 
         setError(null)
+        setEmptyFields([])
         console.log('New Video Added!')
+
         // dispatch the new video to the VideoContext
         dispatch({ type: 'ADD_VIDEO', payload: json })
       }
@@ -57,11 +62,13 @@ const VideoForm = () => {
           Video Title
         </label>
         <input
-          className="appearance-none border rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           placeholder="Please enter a title"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
+          className={`appearance-none border rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            emptyFields.includes('title') && 'border-red-500'
+          }`}
         />
       </div>
 
@@ -70,11 +77,13 @@ const VideoForm = () => {
           Difficulty
         </label>
         <input
-          className="appearance-none border rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           placeholder="1-5 Peppers (1 being easy, 5 being hard)"
           onChange={(e) => setDifficulty(e.target.value)}
           value={difficulty}
+          className={`appearance-none border rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            emptyFields.includes('difficulty') && 'border-red-500'
+          }`}
         />
       </div>
 
@@ -83,11 +92,13 @@ const VideoForm = () => {
           Video URL
         </label>
         <input
-          className="appearance-none border rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="url"
           placeholder="YouTube URL"
           onChange={(e) => setVideo(e.target.value)}
           value={video}
+          className={`appearance-none border rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            emptyFields.includes('video') && 'border-red-500'
+          }`}
         />
       </div>
 
@@ -96,11 +107,13 @@ const VideoForm = () => {
           Video Description
         </label>
         <input
-          className="appearance-none border rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           placeholder="Please enter a detailed description"
           onChange={(e) => setDescription(e.target.value)}
           value={description}
+          className={`appearance-none border rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            emptyFields.includes('description') && 'border-red-500'
+          }`}
           minLength="100"
         />
       </div>
