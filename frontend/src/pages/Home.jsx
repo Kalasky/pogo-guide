@@ -22,7 +22,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div className="videos">{videos && videos.map((video) => <VideoDetails key={video._id} video={video} />)}</div>
+      <div className="videos flex flex-wrap items-center justify-center">{videos && videos.map((video) => <VideoDetails key={video._id} video={video} />)}</div>
     </div>
   )
 }

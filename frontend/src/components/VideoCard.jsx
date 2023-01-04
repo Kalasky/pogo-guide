@@ -7,7 +7,7 @@ const VideoCard = ({ video }) => {
   const hasLongDescription = video.description.length > 150
 
   return (
-    <Card className="w-96">
+    <Card className="w-96 m-7">
       <CardHeader color="blue" className="relative h-56">
         <ReactPlayer url={video.video} width="100%" height="100%" controls />
       </CardHeader>
