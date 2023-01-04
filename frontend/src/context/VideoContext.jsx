@@ -8,6 +8,8 @@ export const videoReducer = (state, action) => {
       return { videos: action.payload }
     case 'ADD_VIDEO':
       return { videos: [...state.videos, action.payload] }
+    case 'DELETE_VIDEO':
+      return { videos: state.videos.filter((video) => video._id !== action.payload._id) }
     default:
       return state
   }
@@ -17,4 +19,3 @@ export const VideoContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(videoReducer, { videos: null })
   return <VideoContext.Provider value={{ ...state, dispatch }}>{children}</VideoContext.Provider>
 }
-
