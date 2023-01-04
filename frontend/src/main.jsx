@@ -4,11 +4,14 @@ import App from './App'
 import './index.css'
 
 import { ThemeProvider } from '@material-tailwind/react'
+import { VideoContextProvider } from './context/VideoContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
-      <App />
+      <VideoContextProvider>
+        <App />
+      </VideoContextProvider>
     </ThemeProvider>
   </React.StrictMode>
 )

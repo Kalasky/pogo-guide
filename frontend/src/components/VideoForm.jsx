@@ -1,7 +1,10 @@
 import { Typography, Button } from '@material-tailwind/react'
 import React, { useState } from 'react'
+import { useVideoContext } from '../hooks/useVideoContext'
 
 const VideoForm = () => {
+  const { dispatch } = useVideoContext()
+
   const [title, setTitle] = useState('')
   const [difficulty, setDifficulty] = useState('')
   const [video, setVideo] = useState('')
@@ -33,6 +36,8 @@ const VideoForm = () => {
 
         setError(null)
         console.log('New Video Added!')
+        // dispatch the new video to the VideoContext
+        dispatch({ type: 'ADD_VIDEO', payload: json })
       }
 
       console.log(json)
