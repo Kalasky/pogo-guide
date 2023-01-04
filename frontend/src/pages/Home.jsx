@@ -1,21 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useVideoContext } from '../hooks/useVideoContext'
 
 // components
 import VideoDetails from '../components/VideoDetails'
 
 const Home = () => {
-  const [videos, setVideos] = useState(null)
+  const { videos, dispatch } = useVideoContext()
+
   useEffect(() => {
     const fetchVideos = async () => {
       const res = await fetch('http://localhost:8000/api/videos')
       const json = await res.json()
 
-      if (res.status !== 200) {
-        throw Error(json.message)
+      if (res.ok) {
+        dispatch({ type: 'SET_VIDEOS', payload: json })
       }
-
-      setVideos(json)
-      console.log(json)
     }
 
     fetchVideos()
