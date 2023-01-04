@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import ReactPlayer from 'react-player'
-import { Card, CardHeader, CardBody, CardFooter, Typography, Chip } from '@material-tailwind/react'
+import { Card, CardHeader, CardBody, CardFooter, Typography, Chip, IconButton } from '@material-tailwind/react'
 import { useVideoContext } from '../hooks/useVideoContext'
-
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 const VideoCard = ({ video }) => {
   const { dispatch } = useVideoContext()
 
@@ -52,10 +52,11 @@ const VideoCard = ({ video }) => {
 
       <CardFooter divider className="flex items-center justify-between py-3">
         <Chip value={video.difficulty} color="amber" />
-        <Chip onClick={handleClick} value="delete" color="red" />
+        <IconButton onClick={handleClick} value="delete" color="red">
+          <i className="fas fa-trash-alt" />
+        </IconButton>
         <Typography variant="small" color="gray" className="flex gap-1">
-          <i className="fas fa-map-marker-alt fa-sm mt-[3px]" />
-          {video.createdAt.substring(0, 10)}
+          {formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}
         </Typography>
       </CardFooter>
     </Card>
