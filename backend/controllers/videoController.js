@@ -1,9 +1,5 @@
 const mongoose = require('mongoose')
-const LegendVideo = require('../models/Video').LegendVideo
-const MasterVideo = require('../models/Video').MasterVideo
-const Map1Video = require('../models/Video').Map1Video
-const Map2Video = require('../models/Video').Map2Video
-const Map3Video = require('../models/Video').Map3Video
+const { LegendVideo, MasterVideo, Map1Video, Map2Video, Map3Video } = require('../models/Video')
 
 // get all legend videos
 const getAllLegendVideos = async (req, res) => {
@@ -305,9 +301,19 @@ const deleteVideo = async (req, res) => {
     return res.status(404).json({ message: 'Video not found!' })
   }
 
-  const video = await Video.findByIdAndRemove({ _id: id })
+  const LegendVideoModel = await LegendVideo.findByIdAndRemove({ _id: id })
+  const MasterVideoModel = await MasterVideo.findByIdAndRemove({ _id: id })
+  const Map1VideoModel = await Map1Video.findByIdAndRemove({ _id: id })
+  const Map2VideoModel = await Map2Video.findByIdAndRemove({ _id: id })
+  const Map3VideoModel = await Map3Video.findByIdAndRemove({ _id: id })
 
-  if (!video) {
+  if (
+    !LegendVideoModel ||
+    !MasterVideoModel ||
+    !Map1VideoModel ||
+    !Map2VideoModel ||
+    !Map3VideoModel
+  ) {
     return res.status(404).json({ message: 'Video not found!' })
   }
 
