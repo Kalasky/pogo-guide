@@ -33,7 +33,48 @@ const getSingleVideo = async (req, res) => {
 }
 
 // create a video
-const createVideo = async (req, res) => {
+const createVideoMaster = async (req, res) => {
+  const { title, description, difficulty, video } = req.body
+
+  console.log('hi')
+
+  let emptyFields = []
+
+  if (!title) {
+    emptyFields.push('title')
+  }
+
+  if (!description) {
+    emptyFields.push('description')
+  }
+
+  if (!difficulty) {
+    emptyFields.push('difficulty')
+  }
+
+  if (!video) {
+    emptyFields.push('video')
+  }
+
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+  }
+
+  try {
+    const newVideo = await Video.create({
+      title,
+      description,
+      difficulty,
+      video,
+    })
+    res.json(newVideo)
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ error: e.message })
+  }
+}
+
+const createVideoLegend = async (req, res) => {
   const { title, description, difficulty, video } = req.body
 
   let emptyFields = []
@@ -66,6 +107,7 @@ const createVideo = async (req, res) => {
       video,
     })
     res.json(newVideo)
+    console.log(newVideo)
   } catch (e) {
     console.log(e)
     res.status(500).json({ error: e.message })
@@ -106,10 +148,10 @@ const deleteVideo = async (req, res) => {
   res.json({ message: 'Video deleted!' })
 }
 
-// export the controller
 module.exports = {
   getAllVideos,
-  createVideo,
+  createVideoMaster,
+  createVideoLegend,
   getSingleVideo,
   updateVideo,
   deleteVideo,

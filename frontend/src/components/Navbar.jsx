@@ -20,16 +20,18 @@ const NavBar = () => {
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-    <Menu>
-      <MenuHandler>
-        <Button size="sm" variant="gradient">Maps</Button>
-      </MenuHandler>
-      <MenuList>
-        <MenuItem>Map 1</MenuItem>
-        <MenuItem>Map 2</MenuItem>
-        <MenuItem>Map 3</MenuItem>
-      </MenuList>
-    </Menu>
+      <Menu>
+        <MenuHandler>
+          <Button size="sm" variant="gradient">
+            Maps
+          </Button>
+        </MenuHandler>
+        <MenuList>
+          <MenuItem>Map 1</MenuItem>
+          <MenuItem>Map 2</MenuItem>
+          <MenuItem>Map 3</MenuItem>
+        </MenuList>
+      </Menu>
       <Typography as="li" variant="small" color="purple" className="p-1 font-normal">
         <a href="#" className="flex items-center">
           Master Guide
@@ -41,7 +43,7 @@ const NavBar = () => {
         </a>
       </Typography>
       <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-        <a href="#" className="flex items-center">
+        <a target="_blank" href="https://www.youtube.com/watch?v=_Xaj4RnX74s" className="flex items-center">
           Mechanics
         </a>
       </Typography>
@@ -55,9 +57,12 @@ const NavBar = () => {
           <span>PogoStuck Guide</span>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        <Button color="red" variant="gradient" size="sm" className="hidden lg:inline-block">
-          <span>YouTube</span>
-        </Button>
+        <a target="_blank" href="https://www.youtube.com/@sombrerocult7304" className="flex items-center">
+          <Button as="li" size="sm" color="red">
+            Youtube
+          </Button>
+        </a>
+
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -90,9 +95,6 @@ const NavBar = () => {
       </div>
       <MobileNav open={openNav}>
         {navList}
-        <Button variant="gradient" size="sm" fullWidth className="mb-2">
-          <span>Buy Now</span>
-        </Button>
       </MobileNav>
     </Navbar>
   )

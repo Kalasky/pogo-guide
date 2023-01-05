@@ -2,7 +2,8 @@ const express = require("express")
 const router = express.Router()
 const {
   getAllVideos,
-  createVideo,
+  createVideoMaster,
+  createVideoLegend,
   getSingleVideo,
   updateVideo,
   deleteVideo,
@@ -15,7 +16,8 @@ router.get("/", getAllVideos)
 router.get("/:id", getSingleVideo)
 
 // route for creating a video
-router.post("/", createVideo)
+router.post("/master", createVideoMaster)
+router.post("/legend", createVideoLegend)
 
 // route for updating a video
 router.put("/:id", updateVideo)
