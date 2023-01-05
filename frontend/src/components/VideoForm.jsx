@@ -127,23 +127,23 @@ const VideoForm = () => {
         />
       </div>
 
-      <Button type="submit" color="green" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/legend')}>
+      <Button className="ml-3 mr-3" type="submit" color="green" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/legend')}>
         Legend
       </Button>
 
-      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/master')}>
+      <Button className="ml-3 mr-3" type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/master')}>
         Master
       </Button>
 
-      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map1')}>
+      <Button className="ml-3 mr-3" type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map1')}>
         Map 1
       </Button>
 
-      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map2')}>
+      <Button className="ml-3 mr-3" type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map2')}>
         Map 2
       </Button>
 
-      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map3')}>
+      <Button className="ml-3 mr-3" type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map3')}>
         Map 3
       </Button>
 

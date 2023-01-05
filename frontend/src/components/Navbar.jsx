@@ -28,15 +28,15 @@ const NavBar = () => {
           </Button>
         </MenuHandler>
         <MenuList>
-          <MenuItem>
-            <Link to="/map1">Map 1</Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to="/map2">Map 2</Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to="/map3">Map 3</Link>
-          </MenuItem>
+          <Link to="/map1">
+            <MenuItem>Map 1</MenuItem>
+          </Link>
+          <Link to="/map2">
+            <MenuItem>Map 2</MenuItem>
+          </Link>
+          <Link to="/map3">
+            <MenuItem>Map 3</MenuItem>
+          </Link>
         </MenuList>
       </Menu>
       <Typography as="li" variant="small" color="purple" className="p-1 font-normal">
@@ -46,12 +46,7 @@ const NavBar = () => {
         <Link to="/legend">Legend Guide</Link>
       </Typography>
       <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-        <a
-          target="_blank"
-          href="https://www.youtube.com/watch?v=_Xaj4RnX74s"
-          rel="noreferrer"
-          className="flex items-center"
-        >
+        <a target="_blank" href="https://www.youtube.com/watch?v=_Xaj4RnX74s" rel="noreferrer" className="flex items-center">
           Mechanics
         </a>
       </Typography>
@@ -65,12 +60,7 @@ const NavBar = () => {
           <span>PogoStuck Guide</span>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        <a
-          target="_blank"
-          href="https://www.youtube.com/@sombrerocult7304"
-          rel="noreferrer"
-          className="flex items-center"
-        >
+        <a target="_blank" href="https://www.youtube.com/@sombrerocult7304" rel="noreferrer" className="flex items-center">
           <Button as="li" size="sm" color="red">
             Youtube
           </Button>
@@ -94,13 +84,7 @@ const NavBar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
