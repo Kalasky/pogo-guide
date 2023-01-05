@@ -10,6 +10,7 @@ import {
   MenuList,
   MenuItem,
 } from '@material-tailwind/react'
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false)
@@ -27,23 +28,30 @@ const NavBar = () => {
           </Button>
         </MenuHandler>
         <MenuList>
-          <MenuItem>Map 1</MenuItem>
-          <MenuItem>Map 2</MenuItem>
-          <MenuItem>Map 3</MenuItem>
+          <MenuItem>
+            <Link to="/map1">Map 1</Link>
+          </MenuItem>
+          <MenuItem>
+            <Link to="/map2">Map 2</Link>
+          </MenuItem>
+          <MenuItem>
+            <Link to="/map3">Map 3</Link>
+          </MenuItem>
         </MenuList>
       </Menu>
       <Typography as="li" variant="small" color="purple" className="p-1 font-normal">
-        <a href="#" className="flex items-center">
-          Master Guide
-        </a>
+        <Link to="/master">Master Guide</Link>
       </Typography>
       <Typography as="li" variant="small" color="green" className="p-1 font-normal">
-        <a href="#" className="flex items-center">
-          Legend Guide
-        </a>
+        <Link to="/legend">Legend Guide</Link>
       </Typography>
       <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-        <a target="_blank" href="https://www.youtube.com/watch?v=_Xaj4RnX74s" className="flex items-center">
+        <a
+          target="_blank"
+          href="https://www.youtube.com/watch?v=_Xaj4RnX74s"
+          rel="noreferrer"
+          className="flex items-center"
+        >
           Mechanics
         </a>
       </Typography>
@@ -57,7 +65,12 @@ const NavBar = () => {
           <span>PogoStuck Guide</span>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        <a target="_blank" href="https://www.youtube.com/@sombrerocult7304" className="flex items-center">
+        <a
+          target="_blank"
+          href="https://www.youtube.com/@sombrerocult7304"
+          rel="noreferrer"
+          className="flex items-center"
+        >
           <Button as="li" size="sm" color="red">
             Youtube
           </Button>
@@ -93,9 +106,7 @@ const NavBar = () => {
           )}
         </IconButton>
       </div>
-      <MobileNav open={openNav}>
-        {navList}
-      </MobileNav>
+      <MobileNav open={openNav}>{navList}</MobileNav>
     </Navbar>
   )
 }

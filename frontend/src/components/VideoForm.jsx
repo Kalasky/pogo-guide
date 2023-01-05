@@ -33,7 +33,6 @@ const VideoForm = () => {
         body: JSON.stringify(videoObj),
       })
 
-      console.log(await res.json())
       const json = await res.json()
 
       if (!res.ok) {
@@ -128,12 +127,24 @@ const VideoForm = () => {
         />
       </div>
 
-      <Button type="submit" color="green" onClick={() => handleRouteSelection('/api/videos/legend')}>
+      <Button type="submit" color="green" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/legend')}>
         Legend
       </Button>
 
-      <Button type="submit" color="purple" onClick={() => handleRouteSelection('/api/videos/master')}>
+      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/master')}>
         Master
+      </Button>
+
+      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map1')}>
+        Map 1
+      </Button>
+
+      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map2')}>
+        Map 2
+      </Button>
+
+      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map3')}>
+        Map 3
       </Button>
 
       {error && <div className="text-red-500">{error}</div>}
