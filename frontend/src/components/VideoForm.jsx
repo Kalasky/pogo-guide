@@ -11,6 +11,15 @@ const VideoForm = () => {
   const [description, setDescription] = useState('')
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
+  const [selectedRoute, setSelectedRoute] = useState(null)
+
+  const handleRouteSelection = (route) => {
+    setSelectedRoute(route)
+  }
+
+  // if (!selectedRoute) {
+  //   return setError('Please select a route')
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -18,7 +27,7 @@ const VideoForm = () => {
     const videoObj = { title, difficulty, video, description }
 
     try {
-      const res = await fetch('http://localhost:8000/api/videos', {
+      const res = await fetch(selectedRoute, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(videoObj),
@@ -118,9 +127,27 @@ const VideoForm = () => {
         />
       </div>
 
-      {error && <div className="text-red-500">{error}</div>}
+      <Button type="submit" color="green" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/legend')}>
+        Legend
+      </Button>
 
-      <Button type="submit">Submit</Button>
+      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/master')}>
+        Master
+      </Button>
+
+      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map1')}>
+        Map 1
+      </Button>
+
+      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map2')}>
+        Map 2
+      </Button>
+
+      <Button type="submit" color="purple" onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map3')}>
+        Map 3
+      </Button>
+
+      {error && <div className="text-red-500">{error}</div>}
     </form>
   )
 }
