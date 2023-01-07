@@ -1,9 +1,11 @@
-const withMT = require("@material-tailwind/react/utils/withMT");
- 
-module.exports = withMT({
-  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+module.exports = {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'beam-bg': "url('./src/assets/beams.jpg')",
+      },
+    },
   },
-  plugins: [],
-});
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+}

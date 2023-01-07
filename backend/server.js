@@ -10,6 +10,7 @@ const mongoose = require("mongoose")
 
 // import routes
 const videoRoutes = require("./routes/videoRoutes")
+const authRoutes = require("./routes/authRoutes")
 
 // middleware
 app.use(express.json()) // for parsing application/json
@@ -28,5 +29,6 @@ mongoose
 
 // routes
 app.use("/api/videos", videoRoutes)
+app.use("/api/auth", authRoutes)
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

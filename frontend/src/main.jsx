@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 
-import { ThemeProvider } from '@material-tailwind/react'
 import { VideoContextProvider } from './context/VideoContext'
+import { AuthProvider } from './context/AuthContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeProvider>
+    <AuthProvider>
       <VideoContextProvider>
         <App />
       </VideoContextProvider>
-    </ThemeProvider>
+    </AuthProvider>
   </React.StrictMode>
 )

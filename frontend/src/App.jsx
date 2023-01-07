@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useAuthContext } from './hooks/useAuthContext'
 import './index.css'
 
 // pages and components
@@ -10,14 +11,18 @@ import Master from './pages/Master'
 import Map1 from './pages/Map1'
 import Map2 from './pages/Map2'
 import Map3 from './pages/Map3'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 function App() {
+  const { user } = useAuthContext()
+  const isAdmin = user && user.role === 'admin'
+
   return (
-    <div className="App">
+    <div className="App bg-[url('./src/assets/beams.jpg')] ">
       <BrowserRouter>
         <NavBar />
         <div className="pages pt-16">
-          <VideoForm />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/legend" element={<Legend />} />
@@ -25,6 +30,9 @@ function App() {
             <Route path="/map1" element={<Map1 />} />
             <Route path="/map2" element={<Map2 />} />
             <Route path="/map3" element={<Map3 />} />
+            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+            <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
+            <Route path="/add-data" element={<VideoForm />} />
           </Routes>
         </div>
       </BrowserRouter>
