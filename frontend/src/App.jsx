@@ -17,9 +17,10 @@ import Signup from './pages/Signup'
 function App() {
   const { user } = useAuthContext()
   const isAdmin = user && user.role === 'admin'
+  // bg-[url('./src/assets/beams.jpg')]
 
   return (
-    <div className="App bg-[url('./src/assets/beams.jpg')] ">
+    <div className="App bg-slate-900 h-screen">
       <BrowserRouter>
         <NavBar />
         <div className="pages pt-16">
