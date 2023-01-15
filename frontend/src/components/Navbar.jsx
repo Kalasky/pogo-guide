@@ -18,7 +18,6 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import logo from '../assets/logo.png'
 
 const solutions = [
   {
@@ -79,15 +78,18 @@ const NavBar = () => {
   return (
     <Popover className="relative">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="flex items-center justify-between border-b-2 border-gray-700 py-6 lg:justify-start md:space-x-10">
+        <div className="flex items-center justify-between py-6 lg:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
-              <span className="sr-only">Your Company</span>
-              <img className="h-8 w-auto sm:h-10" src={logo} alt="" />
+            <a
+              href="#"
+              className="hero text-4xl text-white m-auto"
+              style={{ position: 'relative', fontFamily: 'Playfair Display' }}
+            >
+              PG.
             </a>
           </div>
           <div className="-my-2 -mr-2 lg:hidden">
-            <Popover.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <Popover.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
               <span className="sr-only">Open menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
@@ -98,7 +100,7 @@ const NavBar = () => {
                 <>
                   <Popover.Button
                     className={classNames(
-                      open ? 'text-gray-100' : 'text-gray-100',
+                      open ? 'text-white' : 'text-white',
                       'group inline-flex items-center rounded-md text-base font-medium hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
                     )}
                   >
@@ -138,10 +140,10 @@ const NavBar = () => {
               )}
             </Popover>
 
-            <a href="/master" className="text-base font-medium text-gray-100 hover:text-gray-300">
+            <a href="/master" className="text-base font-medium text-white hover:text-gray-300">
               Master Guide
             </a>
-            <a href="/legend" className="text-base font-medium text-gray-100 hover:text-gray-300">
+            <a href="/legend" className="text-base font-medium text-white hover:text-gray-300">
               Legend Guide
             </a>
 
@@ -150,7 +152,7 @@ const NavBar = () => {
                 <>
                   <Popover.Button
                     className={classNames(
-                      open ? 'text-gray-100' : 'text-gray-100',
+                      open ? 'text-white' : 'text-white',
                       'group inline-flex items-center rounded-md text-base font-medium hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
                     )}
                   >
@@ -203,7 +205,7 @@ const NavBar = () => {
             )}
             {!user && (
               <div>
-                <a href="/login" className="whitespace-nowrap text-base font-medium text-gray-100 hover:text-gray-300">
+                <a href="/login" className="whitespace-nowrap text-base font-medium text-white hover:text-gray-300">
                   Sign in
                 </a>
 
@@ -243,10 +245,16 @@ const NavBar = () => {
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <img className="h-8 w-auto" src={logo} alt="Your Company" />
+                  <a
+                    href="#"
+                    className="hero text-4xl text-black m-auto"
+                    style={{ position: 'relative', fontFamily: 'Playfair Display' }}
+                  >
+                    PG.
+                  </a>
                 </div>
                 <div className="-mr-2">
-                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </Popover.Button>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ReactPlayer from 'react-player'
-import { Card, CardHeader, CardBody, CardFooter, Typography, Chip, IconButton } from '@material-tailwind/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { useVideoContext } from '../hooks/useVideoContext'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 const VideoCard = ({ video }) => {
@@ -27,39 +28,28 @@ const VideoCard = ({ video }) => {
   }
 
   return (
-    <Card className="w-96 m-7">
-      <CardHeader color="blue" className="relative h-56">
-        <ReactPlayer url={video.video} width="100%" height="100%" controls />
-      </CardHeader>
+    <div className="bg-slate-800 rounded-2xl shadow-2xl border p-6 w-72">
+      <ReactPlayer url={video.video} width="100%" height="100%" controls />
+      <h5 className="text-white font-bold text-lg mb-4 mt-3">{video.title}</h5>
+      <div className="text-white text-sm">
+        {hasLongDescription && !showFullDescription ? video.description.substring(0, 150) + '...' : video.description}
 
-      <CardBody className="text-center">
-        <Typography variant="h5" className="mb-2">
-          {video.title}
-        </Typography>
-        <div>
-          {hasLongDescription && !showFullDescription ? video.description.substring(0, 150) + '...' : video.description}
-
-          {hasLongDescription && (
-            <Typography
-              className="cursor-pointer font-bold"
-              onClick={() => setShowFullDescription(!showFullDescription)}
-            >
-              {showFullDescription ? 'Show Less' : 'Show More'}
-            </Typography>
-          )}
+        {hasLongDescription && (
+          <div className="cursor-pointer font-bold" onClick={() => setShowFullDescription(!showFullDescription)}>
+            {showFullDescription ? 'Show Less' : 'Show More'}
+          </div>
+        )}
+      </div>
+      {/* footer  */}
+      <div className="flex items-center justify-between mt-6">
+        <div className="flex items-center gap-2">
+          <span className="text-white text-xs">{formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}</span>
+          <div value="delete" className="text-red-500 cursor-pointer" onClick={handleClick}>
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </div>
         </div>
-      </CardBody>
-
-      <CardFooter divider className="flex items-center justify-between py-3">
-        <Chip value={video.difficulty} color="amber" />
-        <IconButton onClick={handleClick} value="delete" color="red">
-          <i className="fas fa-trash-alt" />
-        </IconButton>
-        <Typography variant="small" color="gray" className="flex gap-1">
-          {formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}
-        </Typography>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   )
 }
 

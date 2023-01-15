@@ -1,11 +1,8 @@
 module.exports = {
+  mode: 'jit',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {
-      backgroundImage: {
-        'beam-bg': "url('./src/assets/beams.jpg')",
-      },
-    },
+    extend: {},
   },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 }

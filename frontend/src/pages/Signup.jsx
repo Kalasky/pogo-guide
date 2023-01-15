@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSignup } from '../hooks/useSignup'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import logo from '../assets/logo.png'
 
 const Signup = () => {
   const [email, setEmail] = useState('')
