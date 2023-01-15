@@ -17,25 +17,21 @@ import Signup from './pages/Signup'
 function App() {
   const { user } = useAuthContext()
   const isAdmin = user && user.role === 'admin'
-  // bg-[url('./src/assets/beams.jpg')]
 
   return (
-    <div className="App bg-slate-900 h-screen">
+    <div className="App">
       <BrowserRouter>
-        <NavBar />
-        <div className="pages pt-16">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/legend" element={<Legend />} />
-            <Route path="/master" element={<Master />} />
-            <Route path="/map1" element={<Map1 />} />
-            <Route path="/map2" element={<Map2 />} />
-            <Route path="/map3" element={<Map3 />} />
-            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-            <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
-            <Route path="/add-data" element={<VideoForm />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/legend" element={<Legend />} />
+          <Route path="/master" element={<Master />} />
+          <Route path="/map1" element={<Map1 />} />
+          <Route path="/map2" element={<Map2 />} />
+          <Route path="/map3" element={<Map3 />} />
+          <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+          <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
+          <Route path="/add-data" element={<VideoForm />} />
+        </Routes>
       </BrowserRouter>
     </div>
   )
