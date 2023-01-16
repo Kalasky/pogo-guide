@@ -19,6 +19,12 @@ const LegendVideoSchema = new Schema(
       type: String,
       required: true,
     },
+    likes: [
+      {
+        type: String,
+        ref: 'User',
+      },
+    ],
   },
   { timestamps: true }
 )
@@ -41,6 +47,12 @@ const MasterVideoSchema = new Schema(
       type: String,
       required: true,
     },
+    likes: [
+      {
+        type: String,
+        ref: 'User',
+      },
+    ],
   },
   { timestamps: true }
 )
@@ -63,6 +75,12 @@ const Map1VideoSchema = new Schema(
       type: String,
       required: true,
     },
+    likes: [
+      {
+        type: String,
+        ref: 'User',
+      },
+    ],
   },
   { timestamps: true }
 )
@@ -85,6 +103,12 @@ const Map2VideoSchema = new Schema(
       type: String,
       required: true,
     },
+    likes: [
+      {
+        type: String,
+        ref: 'User',
+      },
+    ],
   },
   { timestamps: true }
 )
@@ -107,6 +131,12 @@ const Map3VideoSchema = new Schema(
       type: String,
       required: true,
     },
+    likes: [
+      {
+        type: String,
+        ref: 'User',
+      },
+    ],
   },
   { timestamps: true }
 )

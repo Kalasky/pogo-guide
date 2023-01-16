@@ -65,7 +65,7 @@ const getSingleVideo = async (req, res) => {
       return res.status(404).json({ message: 'Video not found!' })
     }
 
-    const video = await Video.findById(id)
+    const video = await MasterVideo.findById(id)
     if (video) {
       return res.json(video)
     }
@@ -76,10 +76,7 @@ const getSingleVideo = async (req, res) => {
   }
 }
 
-// create a video
-const createVideoMaster = async (req, res) => {
-  const { title, description, difficulty, video } = req.body
-
+const validateVideoFields = (title, description, difficulty, video) => {
   let emptyFields = []
 
   if (!title) {
@@ -101,7 +98,12 @@ const createVideoMaster = async (req, res) => {
   if (emptyFields.length > 0) {
     return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
   }
+}
 
+// create a video
+const createVideoMaster = async (req, res) => {
+  const { title, description, difficulty, video } = req.body
+  validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await MasterVideo.create({
       title,
@@ -118,29 +120,7 @@ const createVideoMaster = async (req, res) => {
 
 const createVideoLegend = async (req, res) => {
   const { title, description, difficulty, video } = req.body
-
-  let emptyFields = []
-
-  if (!title) {
-    emptyFields.push('title')
-  }
-
-  if (!description) {
-    emptyFields.push('description')
-  }
-
-  if (!difficulty) {
-    emptyFields.push('difficulty')
-  }
-
-  if (!video) {
-    emptyFields.push('video')
-  }
-
-  if (emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
-  }
-
+  validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await LegendVideo.create({
       title,
@@ -158,29 +138,7 @@ const createVideoLegend = async (req, res) => {
 
 const createVideoMap1 = async (req, res) => {
   const { title, description, difficulty, video } = req.body
-
-  let emptyFields = []
-
-  if (!title) {
-    emptyFields.push('title')
-  }
-
-  if (!description) {
-    emptyFields.push('description')
-  }
-
-  if (!difficulty) {
-    emptyFields.push('difficulty')
-  }
-
-  if (!video) {
-    emptyFields.push('video')
-  }
-
-  if (emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
-  }
-
+  validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await Map1Video.create({
       title,
@@ -198,29 +156,7 @@ const createVideoMap1 = async (req, res) => {
 
 const createVideoMap2 = async (req, res) => {
   const { title, description, difficulty, video } = req.body
-
-  let emptyFields = []
-
-  if (!title) {
-    emptyFields.push('title')
-  }
-
-  if (!description) {
-    emptyFields.push('description')
-  }
-
-  if (!difficulty) {
-    emptyFields.push('difficulty')
-  }
-
-  if (!video) {
-    emptyFields.push('video')
-  }
-
-  if (emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
-  }
-
+  validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await Map2Video.create({
       title,
@@ -238,29 +174,7 @@ const createVideoMap2 = async (req, res) => {
 
 const createVideoMap3 = async (req, res) => {
   const { title, description, difficulty, video } = req.body
-
-  let emptyFields = []
-
-  if (!title) {
-    emptyFields.push('title')
-  }
-
-  if (!description) {
-    emptyFields.push('description')
-  }
-
-  if (!difficulty) {
-    emptyFields.push('difficulty')
-  }
-
-  if (!video) {
-    emptyFields.push('video')
-  }
-
-  if (emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
-  }
-
+  validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await Map3Video.create({
       title,
@@ -307,17 +221,39 @@ const deleteVideo = async (req, res) => {
   const Map2VideoModel = await Map2Video.findByIdAndRemove({ _id: id })
   const Map3VideoModel = await Map3Video.findByIdAndRemove({ _id: id })
 
-  if (
-    !LegendVideoModel ||
-    !MasterVideoModel ||
-    !Map1VideoModel ||
-    !Map2VideoModel ||
-    !Map3VideoModel
-  ) {
+  if (!LegendVideoModel && !MasterVideoModel && !Map1VideoModel && !Map2VideoModel && !Map3VideoModel) {
     return res.status(404).json({ message: 'Video not found!' })
   }
 
   res.json({ message: 'Video deleted!' })
+}
+
+// handle video likes
+const likeVideo = async (req, res, model) => {
+  const { id } = req.body
+  const { email } = req.body
+
+  if (!email) {
+    return res.json({ message: 'Unauthenticated' })
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ message: 'Video not found!' })
+  }
+
+  const video = await model.findById(id)
+
+  const index = video.likes.findIndex((email) => email === req.body.email)
+
+  if (index === -1) {
+    video.likes.push(email)
+  } else {
+    video.likes = video.likes.filter((email) => email !== req.body.email)
+  }
+
+  const updatedVideo = await model.findByIdAndUpdate(id, { likes: video.likes }, { new: true })
+
+  res.json(updatedVideo)
 }
 
 module.exports = {
@@ -334,4 +270,5 @@ module.exports = {
   getSingleVideo,
   updateVideo,
   deleteVideo,
+  likeVideo,
 }

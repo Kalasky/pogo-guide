@@ -14,7 +14,9 @@ const {
   getAllMap1Videos,
   getAllMap2Videos,
   getAllMap3Videos,
+  likeVideo
 } = require('../controllers/videoController')
+const { MasterVideo } = require('../models/Video')
 
 // route for getting all legend videos
 router.get('/legend', getAllLegendVideos)
@@ -46,5 +48,13 @@ router.put('/:id', updateVideo)
 
 // route for deleting a video
 router.delete('/:id', deleteVideo)
+
+// route for liking a video
+router.patch('/master', (req, res) => likeVideo(req, res, MasterVideo))
+router.patch('/legend', (req, res) => likeVideo(req, res, LegendVideo))
+router.patch('/map1', (req, res) => likeVideo(req, res, Map1Video))
+router.patch('/map2', (req, res) => likeVideo(req, res, Map2Video))
+router.patch('/map3', (req, res) => likeVideo(req, res, Map3Video))
+
 
 module.exports = router
