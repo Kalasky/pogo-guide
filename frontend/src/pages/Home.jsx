@@ -1,5 +1,5 @@
 import NavBar from '../components/Navbar'
-
+import { motion } from 'framer-motion'
 const Home = () => {
   return (
     <div className="home text-center">
@@ -26,9 +26,14 @@ const Home = () => {
             our community and discover the full potential of Pogostuck.
           </p>
         </div>
-        <button className="bg-pink-500 hover:bg-purple-600 text-white py-2 px-4 rounded-full transition duration-500 ease-in-out mt-10">
+        <motion.button
+          className="bg-pink-500 hover:bg-purple-600 text-white py-2 px-4 rounded-full transition duration-500 ease-in-out mt-10"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+        >
           Get Started
-        </button>
+        </motion.button>
       </div>
       {/* Section 2 */}
       <div className="home-bg-section-2 -mt-5">
