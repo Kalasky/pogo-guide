@@ -16,6 +16,6 @@ export const videoReducer = (state, action) => {
 }
 
 export const VideoContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(videoReducer, { videos: null })
+  const [state, dispatch] = useReducer(videoReducer, { videos: [] })
   return <VideoContext.Provider value={{ ...state, dispatch }}>{children}</VideoContext.Provider>
 }

@@ -134,7 +134,6 @@ const VideoForm = () => {
                 emptyFields.includes('description') && 'border-red-500'
               }`}
               placeholder="Please enter a detailed description"
-              defaultValue={''}
               onChange={(e) => setDescription(e.target.value)}
               value={description}
               minLength="100"

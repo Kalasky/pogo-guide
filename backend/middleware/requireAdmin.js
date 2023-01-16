@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 
-const requireAuth = async (req, res, next) => {
+const requireAdmin = async (req, res, next) => {
   // verify authentication
   const { authorization } = req.headers
 
@@ -12,14 +12,13 @@ const requireAuth = async (req, res, next) => {
   const token = authorization.split(' ')[1]
 
   try {
-    // verify token by decoding it and checking if it matches the secret
+    // verify token by decoding it and checking if it matches the secret 
     const { _id } = jwt.verify(token, process.env.JWT_SECRET)
     // find user by id and select the role
     const user = await User.findOne({ _id }).select('_id role')
 
-    // if no user is found, return error
-    if (!user) {
-      return res.status(401).json({ error: 'You must be logged in.' })
+    if (user.role !== 'admin') {
+      return res.status(401).json({ error: 'You must have admin privileges to access this route.' })
     }
 
     req.user = user
@@ -30,4 +29,4 @@ const requireAuth = async (req, res, next) => {
   }
 }
 
-module.exports = requireAuth
+module.exports = requireAdmin
