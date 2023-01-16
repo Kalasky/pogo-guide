@@ -10,6 +10,7 @@ import Modal from './Modal'
 
 const VideoCard = ({ video }) => {
   const { dispatch } = useVideoContext()
+  const user = JSON.parse(localStorage.getItem('user'))
   const [likes, setLikes] = useState(video.likes.length)
   const [isDeleted, setIsDeleted] = useState(false)
 
@@ -22,6 +23,10 @@ const VideoCard = ({ video }) => {
     try {
       const res = await fetch(`http://localhost:8000/api/videos/${video._id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
       })
       const json = await res.json()
 
@@ -118,9 +123,11 @@ const VideoCard = ({ video }) => {
                 <FontAwesomeIcon icon={faThumbsUp} onClick={handleLike} /> {likes}
               </span>
             </div>
-            <div value="delete" className="text-red-500 cursor-pointer" onClick={handleClick}>
-              <FontAwesomeIcon icon={faTrashAlt} />
-            </div>
+            {user && user.role === 'admin' && (
+              <div value="delete" className="text-red-500 cursor-pointer" onClick={handleClick}>
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </div>
+            )}
           </div>
         </div>
       )}
