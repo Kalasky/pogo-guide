@@ -13,6 +13,7 @@ import Map2 from './pages/Map2'
 import Map3 from './pages/Map3'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Post from './pages/Post'
 
 function App() {
   const { user } = useAuthContext()
@@ -31,7 +32,8 @@ function App() {
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/add-data" element={<VideoForm />} />
-        </Routes>
+          <Route path="/video/:id" element={<Post />} />
+            </Routes>
       </BrowserRouter>
     </div>
   )

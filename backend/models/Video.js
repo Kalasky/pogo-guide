@@ -21,7 +21,7 @@ const LegendVideoSchema = new Schema(
     },
     likes: [
       {
-        type: String,
+        type: Array,
         ref: 'User',
       },
     ],
@@ -49,7 +49,7 @@ const MasterVideoSchema = new Schema(
     },
     likes: [
       {
-        type: String,
+        type: Array,
         ref: 'User',
       },
     ],
@@ -77,7 +77,7 @@ const Map1VideoSchema = new Schema(
     },
     likes: [
       {
-        type: String,
+        type: Array,
         ref: 'User',
       },
     ],
@@ -105,7 +105,7 @@ const Map2VideoSchema = new Schema(
     },
     likes: [
       {
-        type: String,
+        type: Array,
         ref: 'User',
       },
     ],
@@ -133,7 +133,7 @@ const Map3VideoSchema = new Schema(
     },
     likes: [
       {
-        type: String,
+        type: Array,
         ref: 'User',
       },
     ],

@@ -10,6 +10,8 @@ export const videoReducer = (state, action) => {
       return { videos: [...state.videos, action.payload] }
     case 'DELETE_VIDEO':
       return { videos: state.videos.filter((video) => video._id !== action.payload._id) }
+    case 'GET_VIDEO':
+      return { videos: action.payload }
     default:
       return state
   }

@@ -7,6 +7,8 @@ import { useVideoContext } from '../hooks/useVideoContext'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { useModal } from './useModal'
 import Modal from './Modal'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const VideoCard = ({ video }) => {
   const { dispatch } = useVideoContext()
@@ -18,6 +20,8 @@ const VideoCard = ({ video }) => {
   const hasLongDescription = video.description.length > 150
 
   const { isOpen, openModal, closeModal } = useModal()
+
+  const navigate = useNavigate()
 
   const handleClick = async () => {
     try {
@@ -33,6 +37,28 @@ const VideoCard = ({ video }) => {
       if (res.ok) {
         dispatch({ type: 'DELETE_VIDEO', payload: json })
         setIsDeleted(true)
+      }
+
+      console.log(json)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // route to single video page
+  const handleVideoClick = async () => {
+    try {
+      const res = await fetch(`http://localhost:8000/api/videos/${video._id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const json = await res.json()
+
+      if (res.ok) {
+        dispatch({ type: 'GET_VIDEO', payload: json })
+        navigate(`/video/${video._id}`)
       }
 
       console.log(json)
@@ -128,6 +154,11 @@ const VideoCard = ({ video }) => {
                 <FontAwesomeIcon icon={faTrashAlt} />
               </div>
             )}
+          </div>
+          <div className="text-white text-sm mt-4">
+            <Link to={`/videos/${video._id}`} onClick={handleVideoClick}>
+              <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">View Post</button>
+            </Link>
           </div>
         </div>
       )}
