@@ -18,19 +18,11 @@ const {
 } = require('../controllers/videoController')
 const { MasterVideo } = require('../models/Video')
 
-// route for getting all legend videos
+// routes for getting all videos
 router.get('/legend', getAllLegendVideos)
-
-// route for getting all master videos
 router.get('/master', getAllMasterVideos)
-
-// route for getting all master videos
 router.get('/map1', getAllMap1Videos)
-
-// route for getting all map videos
 router.get('/map2', getAllMap2Videos)
-
-// route for getting all map videos
 router.get('/map3', getAllMap3Videos)
 
 // route for getting a single video
