@@ -14,6 +14,7 @@ import Map3 from './pages/Map3'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Post from './pages/Post'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
   const { user } = useAuthContext()
@@ -32,8 +33,9 @@ function App() {
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           <Route path="/add-data" element={<VideoForm />} />
-          <Route path="/video/:id" element={<Post />} />
-            </Routes>
+          <Route path="/video/:id/:model" element={<Post />} />
+          <Route path="/profile/:authorName" element={<ProfilePage />} />
+        </Routes>
       </BrowserRouter>
     </div>
   )

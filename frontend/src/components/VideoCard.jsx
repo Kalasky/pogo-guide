@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
@@ -7,14 +7,14 @@ import { useVideoContext } from '../hooks/useVideoContext'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { useModal } from './useModal'
 import Modal from './Modal'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 
 const VideoCard = ({ video }) => {
   const { dispatch } = useVideoContext()
   const user = JSON.parse(localStorage.getItem('user'))
   const [likes, setLikes] = useState(video.likes.length)
   const [isDeleted, setIsDeleted] = useState(false)
+  const location = useLocation()
 
   const [showFullDescription, setShowFullDescription] = useState(false)
   const hasLongDescription = video.description.length > 150
@@ -47,8 +47,16 @@ const VideoCard = ({ video }) => {
 
   // route to single video page
   const handleVideoClick = async () => {
+    const models = {
+      '/legend': 'LegendVideo',
+      '/master': 'MasterVideo',
+      '/map1': 'Map1Video',
+      '/map2': 'Map2Video',
+      '/map3': 'Map3Video',
+    }
+    const model = models[location.pathname]
     try {
-      const res = await fetch(`http://localhost:8000/api/videos/${video._id}`, {
+      const res = await fetch(`http://localhost:8000/api/videos/${video._id}?model=${model}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -57,9 +65,8 @@ const VideoCard = ({ video }) => {
       const json = await res.json()
 
       if (res.ok) {
-        dispatch({ type: 'GET_VIDEO', payload: json })
-        navigate(`/video/${video._id}`)
-      }
+      dispatch({ type: 'GET_VIDEO', payload: json })
+      navigate(`/video/${video._id}/${model}`)      }
 
       console.log(json)
     } catch (error) {
@@ -77,7 +84,8 @@ const VideoCard = ({ video }) => {
     const email = user.email || null
 
     try {
-      const res = await fetch(`http://localhost:8000/api/videos/master`, {
+      // dynamically update the url based on the current page, read from location hook
+      const res = await fetch(`http://localhost:8000/api/videos${location.pathname}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -102,6 +110,9 @@ const VideoCard = ({ video }) => {
         <div className="bg-slate-800 rounded-2xl shadow-2xl border p-6 w-72">
           <ReactPlayer url={video.video} width="100%" height="100%" controls />
           <h5 className="text-white font-bold text-lg mb-4 mt-3">{video.title}</h5>
+          <Link to={`/profile/${video.author}`}>
+            <span>{video.author}</span>
+          </Link>
           <div className="text-white text-sm">
             {hasLongDescription && !showFullDescription ? video.description.substring(0, 150) + '...' : video.description}
 
@@ -156,9 +167,12 @@ const VideoCard = ({ video }) => {
             )}
           </div>
           <div className="text-white text-sm mt-4">
-            <Link to={`/videos/${video._id}`} onClick={handleVideoClick}>
-              <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">View Post</button>
-            </Link>
+            <button
+              onClick={handleVideoClick}
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full"
+            >
+              View Post
+            </button>
           </div>
         </div>
       )}

@@ -8,6 +8,7 @@ const VideoForm = () => {
   const [isAdmin, setIsAdmin] = useState(false)
   const { user } = useAuthContext()
   const navigate = useNavigate()
+  const [author, setAuthor] = useState('')
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'))
@@ -18,6 +19,8 @@ const VideoForm = () => {
     if (!user) {
       navigate('/')
     }
+
+    setAuthor(user.username)
   }, [user])
 
   const [title, setTitle] = useState('')
@@ -35,7 +38,8 @@ const VideoForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const videoObj = { title, difficulty, video, description }
+    // create a new video object to send to the backend server
+    const videoObj = { title, author: user.username, difficulty, video, description }
 
     try {
       const postWorkouts = async () => {
@@ -57,10 +61,9 @@ const VideoForm = () => {
           setDifficulty('')
           setVideo('')
           setDescription('')
-
           setError(null)
           setEmptyFields([])
-          console.log('New Video Added!')
+          console.log(json)
 
           // dispatch the new video to the VideoContext
           dispatch({ type: 'ADD_VIDEO', payload: json })
@@ -133,14 +136,31 @@ const VideoForm = () => {
               className={`m-auto lg:w-3/6 mt-1 block w-3/6 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  ${
                 emptyFields.includes('description') && 'border-red-500'
               }`}
-              placeholder="Please enter a detailed description"
+              placeholder="Please enter a detailed description of the video"
               onChange={(e) => setDescription(e.target.value)}
               value={description}
               minLength="100"
             />
           </div>
         </div>
-        <div className='mt-6'>
+        <div className="mb-4">
+          <label className="block text-gray-100 text-sm font-bold mb-2" htmlFor="author">
+            Author
+          </label>
+          <input
+            type="text"
+            readOnly
+            placeholder={author}
+            value={author}
+            className={
+              'lg:w-3/6 mt-1 block w-3/6 m-auto appearance-none border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            }
+          />
+        </div>
+        <div className="mt-6">
+          <label className="block text-black text-sm font-bold mb-2" htmlFor="name">
+            Select a Path
+          </label>
           <button
             className="btn-primary rounded-l-lg"
             type="submit"

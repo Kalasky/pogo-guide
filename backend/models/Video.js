@@ -7,6 +7,10 @@ const LegendVideoSchema = new Schema(
       type: String,
       required: true,
     },
+    author: {
+      type: String,
+      required: true,
+    },
     video: {
       type: String,
       required: true,
@@ -19,12 +23,10 @@ const LegendVideoSchema = new Schema(
       type: String,
       required: true,
     },
-    likes: [
-      {
-        type: Array,
-        ref: 'User',
-      },
-    ],
+    likes: {
+      type: Array,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 )
@@ -35,6 +37,10 @@ const MasterVideoSchema = new Schema(
       type: String,
       required: true,
     },
+    author: {
+      type: String,
+      required: true,
+    },
     video: {
       type: String,
       required: true,
@@ -47,12 +53,10 @@ const MasterVideoSchema = new Schema(
       type: String,
       required: true,
     },
-    likes: [
-      {
-        type: Array,
-        ref: 'User',
-      },
-    ],
+    likes: {
+      type: Array,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 )
@@ -63,6 +67,10 @@ const Map1VideoSchema = new Schema(
       type: String,
       required: true,
     },
+    author: {
+      type: String,
+      required: true,
+    },
     video: {
       type: String,
       required: true,
@@ -75,12 +83,10 @@ const Map1VideoSchema = new Schema(
       type: String,
       required: true,
     },
-    likes: [
-      {
-        type: Array,
-        ref: 'User',
-      },
-    ],
+    likes: {
+      type: Array,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 )
@@ -91,6 +97,10 @@ const Map2VideoSchema = new Schema(
       type: String,
       required: true,
     },
+    author: {
+      type: String,
+      required: true,
+    },
     video: {
       type: String,
       required: true,
@@ -103,12 +113,10 @@ const Map2VideoSchema = new Schema(
       type: String,
       required: true,
     },
-    likes: [
-      {
-        type: Array,
-        ref: 'User',
-      },
-    ],
+    likes: {
+      type: Array,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 )
@@ -119,6 +127,10 @@ const Map3VideoSchema = new Schema(
       type: String,
       required: true,
     },
+    author: {
+      type: String,
+      required: true,
+    },
     video: {
       type: String,
       required: true,
@@ -131,12 +143,10 @@ const Map3VideoSchema = new Schema(
       type: String,
       required: true,
     },
-    likes: [
-      {
-        type: Array,
-        ref: 'User',
-      },
-    ],
+    likes: {
+      type: Array,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 )
