@@ -6,6 +6,11 @@ const Schema = mongoose.Schema
 
 const UserSchema = new Schema(
   {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     email: {
       type: String,
       required: true,
@@ -24,9 +29,9 @@ const UserSchema = new Schema(
 )
 
 // static method to signup user
-UserSchema.statics.signup = async function (email, password) {
-  if (!email || !password) {
-    throw new Error('Email and password are required')
+UserSchema.statics.signup = async function (username, email, password) {
+  if (!username || !email || !password) {
+    throw new Error('All fields are required')
   }
 
   if (!validator.isEmail(email)) {
@@ -37,16 +42,22 @@ UserSchema.statics.signup = async function (email, password) {
     throw new Error('Password is not strong enough')
   }
 
-  const exists = await this.findOne({ email })
+  const exists = await this.findOne({ $or: [{ email }, { username }] })
 
   if (exists) {
-    throw new Error('Email already exists')
+    if (exists.email === email) {
+      throw new Error('Email already exists')
+    }
+    if (exists.username === username) {
+      throw new Error('Username already exists')
+    }
   }
 
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
 
-  const user = await this.create({ email, password: hashedPassword })
+  // create a new user with hashed password
+  const user = await this.create({ username, email, password: hashedPassword })
 
   return user
 }

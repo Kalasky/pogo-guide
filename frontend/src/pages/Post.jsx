@@ -5,11 +5,11 @@ import ReactPlayer from 'react-player'
 // single video page
 const Post = () => {
   const [video, setVideo] = useState({})
-  const { id } = useParams()
+  const { id, model } = useParams()
 
   useEffect(() => {
     const fetchVideo = async () => {
-      const res = await fetch(`http://localhost:8000/api/videos/${id}`, {
+      const res = await fetch(`http://localhost:8000/api/videos/${id}?model=${model}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ const Post = () => {
       console.log(json)
     }
     fetchVideo()
-  }, [id])
+  }, [id, model])
 
   return (
     <div>

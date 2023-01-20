@@ -57,15 +57,21 @@ const getAllMap3Videos = async (req, res) => {
 }
 
 // get single video
-const getSingleVideo = async (req, res) => {
+const getSingleVideo = async (req, res, models) => {
   try {
     const { id } = req.params
+    const model = req.query.model
+    console.log('model: ', model)
+    if (!models[model]) return res.status(404).json({ message: 'Model not found!' })
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(404).json({ message: 'Video not found!' })
     }
 
-    const video = await MasterVideo.findById(id)
+    const video = await models[model].findById(id)
+
+    console.log(video)
+
     if (video) {
       return res.json(video)
     }
@@ -102,11 +108,12 @@ const validateVideoFields = (title, description, difficulty, video) => {
 
 // create a video
 const createVideoMaster = async (req, res) => {
-  const { title, description, difficulty, video } = req.body
+  const { title, author, description, difficulty, video } = req.body
   validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await MasterVideo.create({
       title,
+      author,
       description,
       difficulty,
       video,
@@ -119,11 +126,12 @@ const createVideoMaster = async (req, res) => {
 }
 
 const createVideoLegend = async (req, res) => {
-  const { title, description, difficulty, video } = req.body
+  const { title, author, description, difficulty, video } = req.body
   validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await LegendVideo.create({
       title,
+      author,
       description,
       difficulty,
       video,
@@ -137,11 +145,12 @@ const createVideoLegend = async (req, res) => {
 }
 
 const createVideoMap1 = async (req, res) => {
-  const { title, description, difficulty, video } = req.body
+  const { title, author, description, difficulty, video } = req.body
   validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await Map1Video.create({
       title,
+      author,
       description,
       difficulty,
       video,
@@ -155,11 +164,12 @@ const createVideoMap1 = async (req, res) => {
 }
 
 const createVideoMap2 = async (req, res) => {
-  const { title, description, difficulty, video } = req.body
+  const { title, author, description, difficulty, video } = req.body
   validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await Map2Video.create({
       title,
+      author,
       description,
       difficulty,
       video,
@@ -173,11 +183,12 @@ const createVideoMap2 = async (req, res) => {
 }
 
 const createVideoMap3 = async (req, res) => {
-  const { title, description, difficulty, video } = req.body
+  const { title, author, description, difficulty, video } = req.body
   validateVideoFields(title, description, difficulty, video)
   try {
     const newVideo = await Map3Video.create({
       title,
+      author,
       description,
       difficulty,
       video,
