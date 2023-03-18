@@ -76,7 +76,7 @@ const NavBar = () => {
     logout()
   }
   return (
-    <Popover className="relative">
+    <Popover className="navbar relative top-0 left-0 w-full bg-opacity-90 z-50">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex items-center justify-between py-6 lg:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -106,7 +106,7 @@ const NavBar = () => {
                   >
                     <span>Solutions</span>
                     <ChevronDownIcon
-                      className={classNames(open ? 'text-gray-600' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500')}
+                      className={classNames(open ? 'text-white' : 'text-white', 'ml-2 h-5 w-5 group-hover:text-gray-500')}
                       aria-hidden="true"
                     />
                   </Popover.Button>
@@ -120,7 +120,7 @@ const NavBar = () => {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
+                    <Popover.Panel className="absolute z-50 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {solutions.map((item) => (
@@ -158,7 +158,7 @@ const NavBar = () => {
                   >
                     <span>More</span>
                     <ChevronDownIcon
-                      className={classNames(open ? 'text-gray-600' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500')}
+                      className={classNames(open ? 'text-white' : 'text-white', 'ml-2 h-5 w-5 group-hover:text-gray-500')}
                       aria-hidden="true"
                     />
                   </Popover.Button>
@@ -172,7 +172,7 @@ const NavBar = () => {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 transform px-2 sm:px-0">
+                    <Popover.Panel className="absolute left-1/2 z-50 mt-3 w-screen max-w-md -translate-x-1/2 transform px-2 sm:px-0">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {resources.map((item) => (
@@ -240,7 +240,7 @@ const NavBar = () => {
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
       >
-        <Popover.Panel focus className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition lg:hidden z-10">
+        <Popover.Panel focus className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition lg:hidden z-50">
           <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">

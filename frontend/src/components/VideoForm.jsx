@@ -82,128 +82,131 @@ const VideoForm = () => {
 
   if (isAdmin) {
     return (
-      <form className="mb-10 text-center m-auto" onSubmit={handleSubmit}>
-        <h3>Add a New Video</h3>
-        <div className="mb-4">
-          <label className="block text-gray-100 text-sm font-bold mb-2" htmlFor="name">
-            Video Title
-          </label>
-          <input
-            type="text"
-            placeholder="Please enter a title"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            className={`lg:w-3/6 mt-1 block w-3/6 m-auto appearance-none border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              emptyFields.includes('title') && 'border-red-500'
-            }`}
-          />
+      <div className="min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg">
+          <form onSubmit={handleSubmit}>
+            <h3 className="text-center text-2xl font-extrabold text-gray-900 mb-5">Add a New Video</h3>
+            {/* Add input fields */}
+            {/* Video Title */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                Video Title
+              </label>
+              <input
+                type="text"
+                placeholder="Please enter a title"
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                className={`w-full mt-1 border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  emptyFields.includes('title') && 'border-red-500'
+                }`}
+              />
+            </div>
+            {/* Difficulty */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                Difficulty
+              </label>
+              <input
+                type="text"
+                placeholder="1-5 Peppers (1 being easy, 5 being hard)"
+                onChange={(e) => setDifficulty(e.target.value)}
+                value={difficulty}
+                className={`w-full mt-1 border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  emptyFields.includes('difficulty') && 'border-red-500'
+                }`}
+              />
+            </div>
+            {/* Video URL */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                Video URL
+              </label>
+              <input
+                type="url"
+                placeholder="YouTube URL"
+                onChange={(e) => setVideo(e.target.value)}
+                value={video}
+                className={`w-full mt-1 border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  emptyFields.includes('video') && 'border-red-500'
+                }`}
+              />
+            </div>
+            {/* Video Description */}
+            <div>
+              <label htmlFor="about" className="block text-sm font-bold text-gray-700">
+                Video Description
+              </label>
+              <div className="mt-1">
+                <textarea
+                  rows={3}
+                  className={`w-full mt-1 border rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    emptyFields.includes('description') && 'border-red-500'
+                  }`}
+                  placeholder="Please enter a detailed description of the video"
+                  onChange={(e) => setDescription(e.target.value)}
+                  value={description}
+                  minLength="100"
+                />
+              </div>
+            </div>
+            {/* Author */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="author">
+                Author
+              </label>
+              <input
+                type="text"
+                readOnly
+                placeholder={author}
+                value={author}
+                className={
+                  'w-full mt-1 border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                }
+              />
+            </div>
+            {/* Buttons */}
+            <div className="mt-6 grid grid-cols-2 gap-4">
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={() => handleRouteSelection('http://localhost:8000/api/videos/legend')}
+              >
+                Legend
+              </button>
+              <button
+                className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={() => handleRouteSelection('http://localhost:8000/api/videos/master')}
+              >
+                Master
+              </button>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map1')}
+              >
+                Map 1
+              </button>
+              <button
+                className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map2')}
+              >
+                Map 2
+              </button>
+              <button
+                className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map3')}
+              >
+                Map 3
+              </button>
+            </div>
+            {error && <div className="text-red-500 mt-2">{error}</div>}
+          </form>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-100 text-sm font-bold mb-2" htmlFor="name">
-            Difficulty
-          </label>
-          <input
-            type="text"
-            placeholder="1-5 Peppers (1 being easy, 5 being hard)"
-            onChange={(e) => setDifficulty(e.target.value)}
-            value={difficulty}
-            className={`lg:w-3/6 mt-1 block w-3/6 m-auto appearance-none border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              emptyFields.includes('difficulty') && 'border-red-500'
-            }`}
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-100 text-sm font-bold mb-2" htmlFor="name">
-            Video URL
-          </label>
-          <input
-            type="url"
-            placeholder="YouTube URL"
-            onChange={(e) => setVideo(e.target.value)}
-            value={video}
-            className={`lg:w-3/6 mt-1 block w-3/6 m-auto appearance-none border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              emptyFields.includes('video') && 'border-red-500'
-            }`}
-          />
-        </div>
-        <div>
-          <label htmlFor="about" className="block text-sm font-medium text-gray-100">
-            Video Description
-          </label>
-          <div className="mt-1">
-            <textarea
-              rows={3}
-              className={`m-auto lg:w-3/6 mt-1 block w-3/6 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  ${
-                emptyFields.includes('description') && 'border-red-500'
-              }`}
-              placeholder="Please enter a detailed description of the video"
-              onChange={(e) => setDescription(e.target.value)}
-              value={description}
-              minLength="100"
-            />
-          </div>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-100 text-sm font-bold mb-2" htmlFor="author">
-            Author
-          </label>
-          <input
-            type="text"
-            readOnly
-            placeholder={author}
-            value={author}
-            className={
-              'lg:w-3/6 mt-1 block w-3/6 m-auto appearance-none border rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            }
-          />
-        </div>
-        <div className="mt-6">
-          <label className="block text-black text-sm font-bold mb-2" htmlFor="name">
-            Select a Path
-          </label>
-          <button
-            className="btn-primary rounded-l-lg"
-            type="submit"
-            color="green"
-            onClick={() => handleRouteSelection('http://localhost:8000/api/videos/legend')}
-          >
-            Legend
-          </button>
-          <button
-            className="btn-primary"
-            type="submit"
-            color="purple"
-            onClick={() => handleRouteSelection('http://localhost:8000/api/videos/master')}
-          >
-            Master
-          </button>
-          <button
-            className="btn-primary"
-            type="submit"
-            color="purple"
-            onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map1')}
-          >
-            Map 1
-          </button>
-          <button
-            className="btn-primary"
-            type="submit"
-            color="purple"
-            onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map2')}
-          >
-            Map 2
-          </button>
-          <button
-            className="btn-primary rounded-r-lg"
-            type="submit"
-            color="purple"
-            onClick={() => handleRouteSelection('http://localhost:8000/api/videos/map3')}
-          >
-            Map 3
-          </button>
-        </div>
-        {error && <div className="text-red-500">{error}</div>}
-      </form>
+      </div>
     )
   } else {
     return (

@@ -1,5 +1,7 @@
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
+const multer = require('multer')
+const path = require('path')
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.JWT_SECRET, {
@@ -40,7 +42,7 @@ const signup = async (req, res) => {
 
 const userProfile = async (req, res) => {
   try {
-    const user = await User.findOne({username: req.params.username})
+    const user = await User.findOne({ username: req.params.username })
 
     res.status(200).json({ username: user.username, email: user.email, role: user.role })
 
@@ -50,8 +52,72 @@ const userProfile = async (req, res) => {
   }
 }
 
+const updateProfile = async (req, res) => {
+  console.log('updateProfile', req.body)
+  try {
+    const user = await User.findOne({ username: req.params.username })
+
+    if (!user) return res.status(404).json({ message: 'User not found' })
+
+    // check if user is authorized to perform this action (only the user can update their own profile)
+    if (user._id.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ error: 'You are not authorized to perform this action.' })
+    }
+
+    const { nameColor, pronouns, location, socialMedia, bio } = req.body
+
+    user.nameColor = nameColor || user.nameColor
+    user.bio = bio || user.bio
+    user.pronouns = pronouns || user.pronouns
+    user.location = location || user.location
+    user.socialMedia = socialMedia || user.socialMedia
+
+    const updatedUser = await user.save()
+
+    res.status(200).json(updatedUser)
+  } catch (e) {
+    res.status(400).json({ message: e.message })
+  }
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/')
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`)
+  },
+})
+
+const upload = multer({ storage: storage })
+
+const updateProfilePicture = async (req, res) => {
+  const authorName = req.params.username
+  const profilePicturePath = req.file.path
+
+  try {
+    const user = await User.findOne({ username: authorName })
+
+    if (!user) {
+      res.status(404).send('User not found')
+      return
+    }
+
+    user.profilePicture = profilePicturePath
+    await user.save()
+
+    res.json({ profilePicture: profilePicturePath })
+  } catch (error) {
+    console.log(error)
+    res.status(500).send('Internal server error')
+  }
+}
+
 module.exports = {
   login,
   signup,
   userProfile,
+  updateProfile,
+  updateProfilePicture,
+  upload,
 }

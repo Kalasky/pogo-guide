@@ -14,6 +14,7 @@ const {
   getAllMap2Videos,
   getAllMap3Videos,
   likeVideo,
+  searchContent,
 } = require('../controllers/videoController')
 const { MasterVideo, LegendVideo, Map1Video, Map2Video, Map3Video } = require('../models/Video')
 const models = { LegendVideo, MasterVideo, Map1Video, Map2Video, Map3Video }
@@ -28,6 +29,9 @@ router.get('/map3', getAllMap3Videos)
 
 // route for getting a single video
 router.get('/:id', (req, res) => getSingleVideo(req, res, models))
+
+// route for searching videos
+router.get('/search/:searchTerm', searchContent)
 
 // routes for creating a video
 router.post('/master', createVideoMaster)

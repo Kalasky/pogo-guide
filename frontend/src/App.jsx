@@ -4,7 +4,6 @@ import './index.css'
 
 // pages and components
 import Home from './pages/Home'
-import NavBar from './components/NavBar'
 import VideoForm from './components/VideoForm'
 import Legend from './pages/Legend'
 import Master from './pages/Master'
@@ -15,6 +14,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Post from './pages/Post'
 import ProfilePage from './pages/ProfilePage'
+import ProfileSettings from './pages/ProfileSettings'
 
 function App() {
   const { user } = useAuthContext()
@@ -35,6 +35,7 @@ function App() {
           <Route path="/add-data" element={<VideoForm />} />
           <Route path="/video/:id/:model" element={<Post />} />
           <Route path="/profile/:authorName" element={<ProfilePage />} />
+          <Route path="/settings/profile/:authorName" element={<ProfileSettings />} />
         </Routes>
       </BrowserRouter>
     </div>

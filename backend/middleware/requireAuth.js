@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 
 const requireAuth = async (req, res, next) => {
+  console.log('Inside requireAuth middleware')
+
   // verify authentication
   const { authorization } = req.headers
 
@@ -25,7 +27,7 @@ const requireAuth = async (req, res, next) => {
     req.user = user
     next()
   } catch (err) {
-    console.log(err)
+    console.log('requireAuth', err)
     return res.status(401).json({ error: 'You must be logged in.' })
   }
 }

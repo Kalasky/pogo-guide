@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { useVideoContext } from '../hooks/useVideoContext'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
@@ -20,6 +20,15 @@ const VideoCard = ({ video }) => {
   const hasLongDescription = video.description.length > 150
 
   const { isOpen, openModal, closeModal } = useModal()
+  const [videoModalOpen, setVideoModalOpen] = useState(false)
+
+  const openVideoModal = () => {
+    setVideoModalOpen(true)
+  }
+
+  const closeVideoModal = () => {
+    setVideoModalOpen(false)
+  }
 
   const navigate = useNavigate()
 
@@ -65,8 +74,9 @@ const VideoCard = ({ video }) => {
       const json = await res.json()
 
       if (res.ok) {
-      dispatch({ type: 'GET_VIDEO', payload: json })
-      navigate(`/video/${video._id}/${model}`)      }
+        dispatch({ type: 'GET_VIDEO', payload: json })
+        navigate(`/video/${video._id}/${model}`)
+      }
 
       console.log(json)
     } catch (error) {
@@ -107,26 +117,19 @@ const VideoCard = ({ video }) => {
   return (
     <>
       {!isDeleted && (
-        <div className="bg-slate-800 rounded-2xl shadow-2xl border p-6 w-72">
-          <ReactPlayer url={video.video} width="100%" height="100%" controls />
-          <h5 className="text-white font-bold text-lg mb-4 mt-3">{video.title}</h5>
-          <Link to={`/profile/${video.author}`}>
-            <span>{video.author}</span>
-          </Link>
-          <div className="text-white text-sm">
-            {hasLongDescription && !showFullDescription ? video.description.substring(0, 150) + '...' : video.description}
-
-            {hasLongDescription && (
-              <div className="cursor-pointer font-bold" onClick={() => setShowFullDescription(!showFullDescription)}>
-                {showFullDescription ? 'Show Less' : 'Show More'}
-              </div>
-            )}
-          </div>
-          <div className="flex items-center justify-between mt-6">
-            <div className="flex items-center gap-2">
-              <span className="text-red-500 font-bold cursor-pointer" onClick={openModal}>
-                {video.difficulty}
+        <div className="flex justify-center items-center">
+          <div className="max-w-xs container bg-white rounded-xl transform transition duration-200 hover:scale-105 shadow-xl drop-shadow-2xl">
+            <div>
+              <span
+                className="text-white text-xs font-bold rounded-lg bg-green-500 inline-block mt-4 ml-4 py-1.5 px-4 cursor-pointer"
+                onClick={() => openModal(video)}
+              >
+                {video.difficulty} Peppers
               </span>
+              <span value="delete" className="text-red-500 cursor-pointer float-right mt-4 mr-4" onClick={handleClick}>
+                {user && user.role === 'admin' && <FontAwesomeIcon icon={faTrashAlt} />}
+              </span>
+
               <Modal
                 isOpen={isOpen}
                 closeModal={closeModal}
@@ -155,24 +158,47 @@ const VideoCard = ({ video }) => {
                   </>
                 }
               />
-              <span className="text-white text-xs">{formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}</span>
-              <span className="text-white text-xs">
-                <FontAwesomeIcon icon={faThumbsUp} onClick={handleLike} /> {likes}
-              </span>
+              <h1 className="text-2xl mt-2 mb-2 ml-4 font-bold text-gray-800 cursor-pointer hover:text-gray-900 transition duration-100">
+                {video.title}
+              </h1>
             </div>
-            {user && user.role === 'admin' && (
-              <div value="delete" className="text-red-500 cursor-pointer" onClick={handleClick}>
-                <FontAwesomeIcon icon={faTrashAlt} />
+            <div style={{ height: '11rem' }}>
+              <ReactPlayer url={video.video} width="100%" height="100%" controls light />
+            </div>
+            <p className="ml-4 mt-3 text-gray-700 text-sm">
+              {hasLongDescription && !showFullDescription ? video.description.substring(0, 50) + '...' : video.description}
+
+              {hasLongDescription && (
+                <div
+                  className="cursor-pointer font-bold text-slate-600"
+                  onClick={() => setShowFullDescription(!showFullDescription)}
+                >
+                  {showFullDescription ? 'Show Less' : 'Show More'}
+                </div>
+              )}
+            </p>
+            <div className="flex p-4 justify-between">
+              <div className="text-white text-sm mt-2">
+                <button
+                  onClick={handleVideoClick}
+                  className="bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300"
+                >
+                  View Post
+                </button>
               </div>
-            )}
-          </div>
-          <div className="text-white text-sm mt-4">
-            <button
-              onClick={handleVideoClick}
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full"
-            >
-              View Post
-            </button>
+              <div className="flex space-x-2">
+                <div className="flex space-x-1 items-center">
+                  <span className="text-gray-500 text-xs ml-2">
+                    {formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}
+                  </span>
+                </div>
+                <div className="flex space-x-1 items-center">
+                  <span className="text-red-500 text-xl">
+                    <FontAwesomeIcon icon={faHeart} onClick={handleLike} /> {likes}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

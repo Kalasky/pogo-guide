@@ -24,6 +24,48 @@ const UserSchema = new Schema(
       type: String,
       default: 'user',
     },
+    nameColor: {
+      type: String,
+      default: '#000000',
+    },
+    profilePicture: {
+      type: String,
+      default: '',
+    },
+    pronouns: {
+      type: String,
+      default: '',
+    },
+    location: {
+      type: String,
+      default: '',
+    },
+    bio: {
+      type: String,
+      default: '',
+    },
+    socialMedia: {
+      discord: {
+        type: String,
+        default: '',
+      },
+      twitch: {
+        type: String,
+        default: '',
+      },
+      twitter: {
+        type: String,
+        default: '',
+      },
+      youtube: {
+        type: String,
+        default: '',
+      },
+      spotify: {
+        type: String,
+        default: '',
+      },
+    },
   },
   { timestamps: true }
 )
