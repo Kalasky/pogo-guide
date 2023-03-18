@@ -60,8 +60,8 @@ const getAllMap3Videos = async (req, res) => {
 const getSingleVideo = async (req, res, models) => {
   try {
     const { id } = req.params
+    console.log('id: ', id)
     const model = req.query.model
-    console.log('model: ', model)
     if (!models[model]) return res.status(404).json({ message: 'Model not found!' })
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -82,35 +82,40 @@ const getSingleVideo = async (req, res, models) => {
   }
 }
 
-const validateVideoFields = (title, description, difficulty, video) => {
-  let emptyFields = []
+const validateVideoFields = (title, description, difficulty, video, res) => {
+  let emptyFields = [];
 
   if (!title) {
-    emptyFields.push('title')
+    emptyFields.push('title');
   }
 
   if (!description) {
-    emptyFields.push('description')
+    emptyFields.push('description');
   }
 
   if (!difficulty) {
-    emptyFields.push('difficulty')
+    emptyFields.push('difficulty');
   }
 
   if (!video) {
-    emptyFields.push('video')
+    emptyFields.push('video');
   }
 
   if (emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+    res.status(400).json({ error: 'Please fill in all fields', emptyFields });
+    return false;
   }
-}
+
+  return true;
+};
+
 
 // create a video
 const createVideoMaster = async (req, res) => {
   const { title, author, description, difficulty, video } = req.body
-  validateVideoFields(title, description, difficulty, video)
-  try {
+if (!validateVideoFields(title, description, difficulty, video, res)) {
+  return;
+}  try {
     const newVideo = await MasterVideo.create({
       title,
       author,
@@ -127,8 +132,9 @@ const createVideoMaster = async (req, res) => {
 
 const createVideoLegend = async (req, res) => {
   const { title, author, description, difficulty, video } = req.body
-  validateVideoFields(title, description, difficulty, video)
-  try {
+if (!validateVideoFields(title, description, difficulty, video, res)) {
+  return;
+}  try {
     const newVideo = await LegendVideo.create({
       title,
       author,
@@ -146,8 +152,9 @@ const createVideoLegend = async (req, res) => {
 
 const createVideoMap1 = async (req, res) => {
   const { title, author, description, difficulty, video } = req.body
-  validateVideoFields(title, description, difficulty, video)
-  try {
+if (!validateVideoFields(title, description, difficulty, video, res)) {
+  return;
+}  try {
     const newVideo = await Map1Video.create({
       title,
       author,
@@ -165,8 +172,9 @@ const createVideoMap1 = async (req, res) => {
 
 const createVideoMap2 = async (req, res) => {
   const { title, author, description, difficulty, video } = req.body
-  validateVideoFields(title, description, difficulty, video)
-  try {
+if (!validateVideoFields(title, description, difficulty, video, res)) {
+  return;
+}  try {
     const newVideo = await Map2Video.create({
       title,
       author,
@@ -184,8 +192,9 @@ const createVideoMap2 = async (req, res) => {
 
 const createVideoMap3 = async (req, res) => {
   const { title, author, description, difficulty, video } = req.body
-  validateVideoFields(title, description, difficulty, video)
-  try {
+if (!validateVideoFields(title, description, difficulty, video, res)) {
+  return;
+}  try {
     const newVideo = await Map3Video.create({
       title,
       author,
@@ -267,6 +276,22 @@ const likeVideo = async (req, res, model) => {
   res.json(updatedVideo)
 }
 
+// handle search query
+const searchContent = async (req, res) => {
+  const { searchTerm } = req.params
+  console.log(searchTerm)
+  // run this cmd in mongo shell to create index for text search in description field
+  // rinse and repeat for other fields
+  // db.legendvideos.createIndex( { "description": "text" } )
+
+  try {
+    const content = await LegendVideo.aggregate([{ $match: { $text: { $search: searchTerm } } }])
+    console.log(content)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   getAllLegendVideos,
   getAllMasterVideos,
@@ -282,4 +307,5 @@ module.exports = {
   updateVideo,
   deleteVideo,
   likeVideo,
+  searchContent,
 }

@@ -35,8 +35,9 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 18rem;
+  height: 10rem; /* Reduce the height */
   background: linear-gradient(180deg, rgba(1, 22, 39, 0) 0%, #011627 76.64%, #011627 100%);
+  z-index: 1; /* Add a z-index value */
 }
 
 .home-bg-section-2::before {
@@ -78,3 +79,255 @@ object {
   flex-direction: column;
   align-items: center;
 }
+
+.get-started-btn-map1 {
+  background-color: #be6318;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.5s ease;
+}
+
+.get-started-btn-map1:hover {
+  background-color: #63330c;
+}
+
+.get-started-btn-map2 {
+  background-color: #1873fa;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.5s ease;
+}
+
+.get-started-btn-map2:hover {
+  background-color: #2f21af;
+}
+
+.get-started-btn-map3 {
+  background-color: #ed42f3;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.5s ease;
+}
+
+.get-started-btn-map3:hover {
+  background-color: #ff08de;
+}
+
+.get-started-btn-master {
+  background-color: #701586;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.5s ease;
+}
+
+.get-started-btn-master:hover {
+  background-color: #d400ff;
+}
+
+.get-started-btn-legend {
+  background-color: #0e4600;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.5s ease;
+}
+
+.get-started-btn-legend:hover {
+  background-color: #146927;
+}
+
+/* Map 1 */
+.map1-bg-section-1 {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 75vh;
+  width: 100%;
+  position: relative;
+}
+
+.map1-bg-section-1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: polygon(0 100%, 100% 0, 100% 110%);
+}
+
+/* Modify the clip-path  for smaller screens */
+@media screen and (max-width: 768px) {
+  .map1-bg-section-1::after {
+    height: 100px;
+    clip-path: polygon(0 100%, 100% 0, 100% 110%);
+  }
+}
+
+/* Map 2 */
+.map2-bg-section-1 {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 75vh;
+  width: 100%;
+  position: relative;
+}
+
+.map2-bg-section-1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: polygon(0 100%, 100% 0, 100% 110%);
+}
+
+/* Modify the clip-path  for smaller screens */
+@media screen and (max-width: 768px) {
+  .map2-bg-section-1::after {
+    height: 100px;
+    clip-path: polygon(0 100%, 100% 0, 100% 110%);
+  }
+}
+
+/* Map 3 */
+.map3-bg-section-1 {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 75vh;
+  width: 100%;
+  position: relative;
+}
+
+.map3-bg-section-1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: polygon(0 100%, 100% 0, 100% 110%);
+}
+
+/* Modify the clip-path  for smaller screens */
+@media screen and (max-width: 768px) {
+  .map3-bg-section-1::after {
+    height: 100px;
+    clip-path: polygon(0 100%, 100% 0, 100% 110%);
+  }
+}
+
+/* Master */
+.master-bg-section-1 {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 75vh;
+  width: 100%;
+  position: relative;
+}
+
+.master-bg-section-1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: polygon(0 100%, 100% 0, 100% 110%);
+}
+
+/* Modify the clip-path  for smaller screens */
+@media screen and (max-width: 768px) {
+  .master-bg-section-1::after {
+    height: 100px;
+    clip-path: polygon(0 100%, 100% 0, 100% 110%);
+  }
+}
+
+/* Legend */
+.legend-bg-section-1 {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 75vh;
+  width: 100%;
+  position: relative;
+}
+
+.legend-bg-section-1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: polygon(0 100%, 100% 0, 100% 110%);
+}
+
+/* Modify the clip-path  for smaller screens */
+@media screen and (max-width: 768px) {
+  .legend-bg-section-1::after {
+    height: 100px;
+    clip-path: polygon(0 100%, 100% 0, 100% 110%);
+  }
+}
+
+.custom-anchor {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+@media screen and (min-width: 1536px) {
+  .container {
+    max-width: 1300px;
+  }
+}
+  
