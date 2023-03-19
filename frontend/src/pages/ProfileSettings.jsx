@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 const ProfileSettings = () => {
+  // Get author name from URL parameters and the current user from the authentication context
   const { authorName } = useParams()
   const { user } = useAuthContext()
   const navigate = useNavigate()
@@ -10,24 +11,28 @@ const ProfileSettings = () => {
   // Check if the currently logged-in user matches the author of the profile
   const isAuthorized = user && user.username === authorName
 
+  // Initialize state for author data and social media
   const [author, setAuthor] = useState({})
   const [nameColor, setNameColor] = useState('')
   const [pronouns, setPronouns] = useState('')
   const [location, setLocation] = useState('')
+  const [bio, setBio] = useState('')
   const [discord, setDiscord] = useState('')
   const [twitch, setTwitch] = useState('')
   const [twitter, setTwitter] = useState('')
   const [youtube, setYoutube] = useState('')
   const [spotify, setSpotify] = useState('')
-  const [bio, setBio] = useState('')
-  const [profilePicture, setProfilePicture] = useState(null)
   const [profilePictureURL, setProfilePictureURL] = useState('')
 
+  // Fetch author data on component mount and when authorName changes
   useEffect(() => {
     const fetchAuthor = async () => {
       try {
+        // Fetch author data from API
         const response = await fetch(`http://localhost:8000/api/auth/profile/${authorName}`)
         const data = await response.json()
+
+        // Update state with fetched data or localStorage values
         setAuthor(data)
         setNameColor(data.nameColor || localStorage.getItem('nameColor'))
         setPronouns(data.pronouns || localStorage.getItem('pronouns'))
@@ -38,7 +43,18 @@ const ProfileSettings = () => {
         setTwitter(data.twitter || localStorage.getItem('twitter'))
         setYoutube(data.youtube || localStorage.getItem('youtube'))
         setSpotify(data.spotify || localStorage.getItem('spotify'))
-        setProfilePictureURL(data.profilePicture || localStorage.getItem('profilePicture'))
+
+        // Set profile picture URL state and localStorage based on fetched data
+        const fetchedProfilePictureURL = data.profilePicture
+        setProfilePictureURL(fetchedProfilePictureURL)
+        if (!profilePictureURL) {
+          const profilePictureURLFromStorage = localStorage.getItem('profilePictureURL')
+          if (profilePictureURLFromStorage) {
+            setProfilePictureURL(profilePictureURLFromStorage)
+          } else {
+            localStorage.setItem('profilePictureURL', fetchedProfilePictureURL)
+          }
+        }
       } catch (error) {
         console.log(error)
       }
@@ -46,9 +62,11 @@ const ProfileSettings = () => {
     fetchAuthor()
   }, [authorName])
 
+  // Handle the form submission for personal information
   const handlePersonalInfoSubmit = async (e) => {
     e.preventDefault()
 
+    // Prepare the updated author object
     const updatedAuthor = {
       ...author,
       nameColor,
@@ -57,9 +75,11 @@ const ProfileSettings = () => {
       bio,
     }
 
+    // Get token from localStorage
     const user = JSON.parse(localStorage.getItem('user'))
     const token = user.token
 
+    // Update the author data on the server
     try {
       const response = await fetch(`http://localhost:8000/api/auth/profile/${authorName}`, {
         method: 'PUT',
@@ -67,6 +87,8 @@ const ProfileSettings = () => {
         body: JSON.stringify(updatedAuthor),
       })
       const data = await response.json()
+
+      // Update state and localStorage with updated data
       setAuthor(data)
       setNameColor(data.nameColor)
       setPronouns(data.pronouns)
@@ -81,9 +103,11 @@ const ProfileSettings = () => {
     }
   }
 
+  // Handle the form submission for social media information
   const handleSocialMediaSubmit = async (e) => {
     e.preventDefault()
 
+    // Prepare the updated author object with social media information
     const updatedAuthor = {
       ...author,
       socialMedia: {
@@ -95,9 +119,11 @@ const ProfileSettings = () => {
       },
     }
 
+    // Get token from localStorage
     const user = JSON.parse(localStorage.getItem('user'))
     const token = user.token
 
+    // Update the author data on the server
     try {
       const response = await fetch(`http://localhost:8000/api/auth/profile/${authorName}`, {
         method: 'PUT',
@@ -106,6 +132,7 @@ const ProfileSettings = () => {
       })
       const data = await response.json()
 
+      // Update state and localStorage with updated data
       setAuthor(data)
       setDiscord(data.socialMedia.discord)
       setTwitch(data.socialMedia.twitch)
@@ -122,23 +149,32 @@ const ProfileSettings = () => {
     }
   }
 
+  // Handle profile picture change event
   const handleProfilePictureChange = (e) => {
-    setProfilePicture(e.target.files[0])
+    setProfilePictureURL(URL.createObjectURL(e.target.files[0]))
   }
 
+  // Handle profile picture form submission
   const handleProfilePictureSubmit = async (e) => {
     e.preventDefault()
 
+    // Get the selected profile picture
+    const profilePicture = e.target.elements.profilePicture.files[0]
+
+    // If no profile picture is selected, return early
     if (!profilePicture) {
       return
     }
 
+    // Create formData object with profile picture
     const formData = new FormData()
     formData.append('profilePicture', profilePicture)
 
+    // Get token from localStorage
     const user = JSON.parse(localStorage.getItem('user'))
     const token = user.token
 
+    // Update the profile picture on the server
     try {
       const response = await fetch(`http://localhost:8000/api/auth/profile/${authorName}/profile-picture`, {
         method: 'POST',
@@ -147,14 +183,17 @@ const ProfileSettings = () => {
       })
 
       if (response.ok) {
-        console.log('Profile picture updated successfully')
         const data = await response.json()
+
+        // Save the URL of the uploaded file to localStorage and update the state
+        localStorage.setItem('profilePictureURL', data.profilePicture)
         setProfilePictureURL(data.profilePicture)
+
+        // Update the author object with the URL of the uploaded file
         setAuthor((prevAuthor) => ({
           ...prevAuthor,
           profilePicture: data.profilePicture,
         }))
-        localStorage.setItem('profilePicture', data.profilePicture)
       } else {
         console.log('Error updating profile picture')
       }
@@ -173,13 +212,10 @@ const ProfileSettings = () => {
     <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-4">{author.username}</h1>
-        {author.profilePicture && (
-          <img
-            src={`http://localhost:8000/${author.profilePicture}`}
-            alt="Profile picture"
-            className="w-24 h-24 mb-4 rounded-full object-cover"
-          />
+        {profilePictureURL && (
+          <img src={profilePictureURL} alt="Profile picture" className="w-24 h-24 mb-4 rounded-full object-cover" />
         )}
+
         <h2 className="text-xl font-bold mb-2">Personal Information</h2>
         <form onSubmit={handlePersonalInfoSubmit}>
           <label className="block mb-4">

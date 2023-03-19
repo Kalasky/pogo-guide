@@ -13,6 +13,8 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "concurrently": "^7.6.0"
+    "@google-cloud/storage": "^6.9.4",
+    "concurrently": "^7.6.0",
+    "firebase-admin": "^11.5.0"
   }
 }

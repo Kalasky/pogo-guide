@@ -16,6 +16,23 @@ import Post from './pages/Post'
 import ProfilePage from './pages/ProfilePage'
 import ProfileSettings from './pages/ProfileSettings'
 
+// firebase
+import { initializeApp } from 'firebase/app'
+import {getAnalytics} from 'firebase/analytics'
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD6P8sexctMJ7yRkoytgdDoubzULc8uiMY",
+  authDomain: "pogo-guide-8e1fd.firebaseapp.com",
+  projectId: "pogo-guide-8e1fd",
+  storageBucket: "pogo-guide-8e1fd.appspot.com",
+  messagingSenderId: "931399758103",
+  appId: "1:931399758103:web:34f5d874ac652c72794752",
+  measurementId: "G-58BNZCWJ6E"
+};
+
+const app = initializeApp(firebaseConfig)
+const analytics = getAnalytics(app)
+
 function App() {
   const { user } = useAuthContext()
   const isAdmin = user && user.role === 'admin'

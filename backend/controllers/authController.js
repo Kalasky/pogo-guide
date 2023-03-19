@@ -1,7 +1,20 @@
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
-const path = require('path')
+const admin = require('firebase-admin')
+
+const serviceAccount = require('../../serviceAccountKey.json')
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+})
+
+const storage = admin.storage()
+const bucket = storage.bucket('gs://pogo-guide-8e1fd.appspot.com')
+
+const multerStorage = multer.memoryStorage()
+
+const upload = multer({ storage: multerStorage })
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.JWT_SECRET, {
@@ -80,37 +93,59 @@ const updateProfile = async (req, res) => {
   }
 }
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/')
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`)
-  },
-})
-
-const upload = multer({ storage: storage })
-
 const updateProfilePicture = async (req, res) => {
   const authorName = req.params.username
-  const profilePicturePath = req.file.path
 
-  try {
-    const user = await User.findOne({ username: authorName })
+  if (!req.file) {
+    res.status(400).send('No file uploaded.')
+    return
+  }
 
-    if (!user) {
-      res.status(404).send('User not found')
-      return
-    }
+  // Generate a unique file name
+  const fileName = `${Date.now()}-${req.file.originalname}`
 
-    user.profilePicture = profilePicturePath
-    await user.save()
+  // Create a new file in the Firebase bucket
+  const file = bucket.file(fileName)
 
-    res.json({ profilePicture: profilePicturePath })
-  } catch (error) {
+  // Create a write stream to upload the image
+  const stream = file.createWriteStream({
+    metadata: {
+      contentType: req.file.mimetype,
+    },
+  })
+
+  stream.on('error', (error) => {
     console.log(error)
     res.status(500).send('Internal server error')
-  }
+  })
+
+  stream.on('finish', async () => {
+    // Make the uploaded file publicly accessible
+    await file.makePublic()
+
+    // Get the public URL of the uploaded file
+    const profilePicturePath = `https://storage.googleapis.com/${bucket.name}/${file.name}`
+
+    try {
+      const user = await User.findOne({ username: authorName })
+
+      if (!user) {
+        res.status(404).send('User not found')
+        return
+      }
+
+      user.profilePicture = profilePicturePath
+      await user.save()
+
+      res.json({ profilePicture: profilePicturePath })
+    } catch (error) {
+      console.log(error)
+      res.status(500).send('Internal server error')
+    }
+  })
+
+  // Write the image data to the write stream
+  stream.end(req.file.buffer)
 }
 
 module.exports = {
