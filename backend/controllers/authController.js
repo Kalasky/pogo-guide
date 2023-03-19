@@ -2,6 +2,9 @@ const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
 const admin = require('firebase-admin')
+const crypto = require('crypto')
+const { sendPasswordResetEmail } = require('../controllers/mailer')
+const bcrypt = require('bcrypt')
 
 const serviceAccount = require('../../serviceAccountKey.json')
 
@@ -148,6 +151,63 @@ const updateProfilePicture = async (req, res) => {
   stream.end(req.file.buffer)
 }
 
+const resetPassword = async (req, res) => {
+  const email = req.body.email
+
+  // Find the user by email
+  const user = await User.findOne({ email })
+
+  if (!user) {
+    return res.status(404).send('User not found')
+  }
+
+  // Generate a password reset token
+  const token = crypto.randomBytes(20).toString('hex')
+
+  // Save the token and expiration time to the user's document
+  user.resetPasswordToken = token
+  user.resetPasswordExpires = Date.now() + 3600000 // Expires in 1 hour
+  await user.save()
+
+  // Send the password reset email
+  await sendPasswordResetEmail(email, token)
+
+  res.status(200).send('Password reset email sent')
+}
+
+const updatePassword = async (req, res) => {
+  const { password } = req.body
+  const { token } = req.params
+
+  if (!password) {
+    return res.status(400).json({ message: 'Password is required' })
+  }
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    })
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired token' })
+    }
+
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    user.password = hashedPassword
+    user.resetPasswordToken = ''
+    user.resetPasswordExpires = Date.now()
+
+    await user.save()
+
+    res.status(200).json({ message: 'Password updated successfully' })
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating password' })
+  }
+}
+
 module.exports = {
   login,
   signup,
@@ -155,4 +215,6 @@ module.exports = {
   updateProfile,
   updateProfilePicture,
   upload,
+  resetPassword,
+  updatePassword,
 }

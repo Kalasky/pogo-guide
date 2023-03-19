@@ -4,9 +4,9 @@ export const useLogout = () => {
   const { dispatch } = useAuthContext()
 
   const logout = () => {
-    // remove the user from local storage
-    localStorage.removeItem('user')
-
+    // clear all local storage
+    localStorage.clear()
+    
     // update the auth context
     dispatch({ type: 'LOGOUT' })
   }

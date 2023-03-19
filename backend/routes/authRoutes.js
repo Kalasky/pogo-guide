@@ -1,6 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const { login, signup, userProfile, updateProfile, updateProfilePicture, upload } = require('../controllers/authController')
+const {
+  login,
+  signup,
+  userProfile,
+  updateProfile,
+  updateProfilePicture,
+  upload,
+  resetPassword,
+  updatePassword,
+} = require('../controllers/authController')
 const requireAuth = require('../middleware/requireAuth')
 
 // login route
@@ -17,5 +26,11 @@ router.put('/profile/:username', requireAuth, updateProfile)
 
 // update profile picture route
 router.post('/profile/:username/profile-picture', requireAuth, upload.single('profilePicture'), updateProfilePicture)
+
+// reset password route
+router.post('/reset-password', resetPassword)
+
+// update password route
+router.post('/reset-password/:token', updatePassword)
 
 module.exports = router
