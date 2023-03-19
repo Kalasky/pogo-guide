@@ -1,10 +1,14 @@
 require('dotenv').config()
+
 // express imports
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const PORT = process.env.PORT || 8000
-const path = require('path');
+const path = require('path')
+
+const { sendPasswordResetEmail } = require('./controllers/mailer')
+const crypto = require('crypto')
 
 // database imports
 const mongoose = require('mongoose')

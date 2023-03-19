@@ -12,6 +12,7 @@ const ProfileSettings = () => {
   const isAuthorized = user && user.username === authorName
 
   // Initialize state for author data and social media
+  const [message, setMessage] = useState('')
   const [author, setAuthor] = useState({})
   const [nameColor, setNameColor] = useState('')
   const [pronouns, setPronouns] = useState('')
@@ -61,6 +62,33 @@ const ProfileSettings = () => {
     }
     fetchAuthor()
   }, [authorName])
+  
+  const handleResetPassword = async () => {
+    // Get token from localStorage
+    const user = JSON.parse(localStorage.getItem('user'))
+    const token = user.token
+
+    // Send a request to the server to send a reset password link to the user's email
+    try {
+      const response = await fetch(`http://localhost:8000/api/auth/reset-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ email: user.email }),
+      })
+
+      if (response.ok) {
+        setMessage('Reset password link has been sent to your email.')
+      } else {
+        setMessage('Failed to send the reset password link. Please try again.')
+      }
+    } catch (error) {
+      console.log(error)
+      setMessage('An error occurred. Please try again.')
+    }
+  }
 
   // Handle the form submission for personal information
   const handlePersonalInfoSubmit = async (e) => {
@@ -267,6 +295,12 @@ const ProfileSettings = () => {
             Update Profile
           </button>
         </form>
+        <button
+          onClick={handleResetPassword}
+          className="w-full mt-6 px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+        >
+          Reset Password
+        </button>
       </div>
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-xl font-bold mb-2">Social Media</h2>

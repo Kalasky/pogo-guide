@@ -15,6 +15,7 @@ import Signup from './pages/Signup'
 import Post from './pages/Post'
 import ProfilePage from './pages/ProfilePage'
 import ProfileSettings from './pages/ProfileSettings'
+import ResetPassword from './pages/ResetPassword'
 
 // firebase
 import { initializeApp } from 'firebase/app'
@@ -53,6 +54,7 @@ function App() {
           <Route path="/video/:id/:model" element={<Post />} />
           <Route path="/profile/:authorName" element={<ProfilePage />} />
           <Route path="/settings/profile/:authorName" element={<ProfileSettings />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </div>
