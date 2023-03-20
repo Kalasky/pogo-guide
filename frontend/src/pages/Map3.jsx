@@ -6,6 +6,7 @@ import '../index.css'
 import NavBar from '../components/Navbar'
 import VideoDetails from '../components/VideoDetails'
 import Pagination from '../components/Pagination'
+import Footer from '../components/Footer'
 
 // Font Awesome
 import { motion } from 'framer-motion'
@@ -87,7 +88,6 @@ const Map1 = () => {
         <NavBar />
         {/* Hero Section */}
         <section className="hero-section text-white pb-20">
-          {/* Add your hero content */}
           <div className="container mx-auto px-4">
             <h1 className="hero-title text-5xl font-bold lg:text-6xl max-md:text-6xl max-sm:text-5xl lg:mt-20 md:mt-24 max-sm:mt-10">
               Map 3
@@ -150,6 +150,7 @@ const Map1 = () => {
           />
         </div>
       </div>
+      <Footer />
     </>
   )
 }

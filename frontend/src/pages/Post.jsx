@@ -4,6 +4,7 @@ import ReactPlayer from 'react-player'
 
 // components
 import NavBar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 // Font Awesome
 import { motion } from 'framer-motion'
@@ -33,21 +34,14 @@ const Post = () => {
   const titleVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-  };
-
+  }
 
   return (
     <>
       <section className="hero-section bg-gradient-to-br from-pink-300 to-fuchsia-600">
         <NavBar />
         <div className="container mx-auto px-4 py-20">
-          
-        <motion.h1
-            className="text-5xl font-bold text-white mb-8"
-            initial="hidden"
-            animate="visible"
-            variants={titleVariants}
-          >
+          <motion.h1 className="text-5xl font-bold text-white mb-8" initial="hidden" animate="visible" variants={titleVariants}>
             {video.title}
           </motion.h1>
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -70,6 +64,7 @@ const Post = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   )
 }

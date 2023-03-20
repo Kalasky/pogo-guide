@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Popover } from '@headlessui/react'
 import NavBar from '../components/NavBar'
+import Footer from '../components/Footer'
 
 const Home = () => {
   const heroVariants = {
@@ -233,11 +234,7 @@ const Home = () => {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-indigo-500 py-12">
-        <div className="container mx-auto px-4">{/* Add footer content here */}</div>
-      </footer>
+      <Footer />
     </div>
   )
 }

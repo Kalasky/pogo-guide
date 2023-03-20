@@ -62,7 +62,7 @@ const ProfileSettings = () => {
     }
     fetchAuthor()
   }, [authorName])
-  
+
   const handleResetPassword = async () => {
     // Get token from localStorage
     const user = JSON.parse(localStorage.getItem('user'))
@@ -378,6 +378,7 @@ const ProfileSettings = () => {
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   )
 }

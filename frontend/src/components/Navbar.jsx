@@ -81,7 +81,7 @@ const NavBar = () => {
         <div className="flex items-center justify-between py-6 lg:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a
-              href="#"
+              href="/"
               className="hero text-4xl text-white m-auto"
               style={{ position: 'relative', fontFamily: 'Playfair Display' }}
             >
@@ -104,7 +104,7 @@ const NavBar = () => {
                       'group inline-flex items-center rounded-md text-base font-medium hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
                     )}
                   >
-                    <span>Solutions</span>
+                    <span>Maps</span>
                     <ChevronDownIcon
                       className={classNames(open ? 'text-white' : 'text-white', 'ml-2 h-5 w-5 group-hover:text-gray-500')}
                       aria-hidden="true"

@@ -24,6 +24,7 @@ const ProfilePage = () => {
     <div>
       <h1>Username: {author.username}</h1>
       <p>Role: {author.role}</p>
+      <Footer />
     </div>
   )
 }
