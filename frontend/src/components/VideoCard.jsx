@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { useVideoContext } from '../hooks/useVideoContext'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { useModal } from './useModal'
 import Modal from './Modal'
-import { useNavigate, Link, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const VideoCard = ({ video }) => {
   const { dispatch } = useVideoContext()
@@ -20,15 +19,6 @@ const VideoCard = ({ video }) => {
   const hasLongDescription = video.description.length > 150
 
   const { isOpen, openModal, closeModal } = useModal()
-  const [videoModalOpen, setVideoModalOpen] = useState(false)
-
-  const openVideoModal = () => {
-    setVideoModalOpen(true)
-  }
-
-  const closeVideoModal = () => {
-    setVideoModalOpen(false)
-  }
 
   const navigate = useNavigate()
 
@@ -96,7 +86,7 @@ const VideoCard = ({ video }) => {
     try {
       // dynamically update the url based on the current page, read from location hook
       const res = await fetch(`http://localhost:8000/api/videos${location.pathname}`, {
-        method: 'PATCH',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },

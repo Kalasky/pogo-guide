@@ -16,6 +16,7 @@ const mongoose = require('mongoose')
 // import routes
 const videoRoutes = require('./routes/videoRoutes')
 const authRoutes = require('./routes/authRoutes')
+const tournamentRoutes = require('./routes/tournamentRoutes')
 
 // middleware
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
@@ -36,5 +37,6 @@ mongoose
 // routes
 app.use('/api/videos', videoRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/tournaments', tournamentRoutes)
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
