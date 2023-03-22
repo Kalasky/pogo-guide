@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSignup } from '../hooks/useSignup'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
+import Footer from '../components/Footer'
 
 const Signup = () => {
   const [username, setUsername] = useState('')

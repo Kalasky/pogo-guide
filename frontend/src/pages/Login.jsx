@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
+import Footer from '../components/Footer'
 
 const Login = () => {
   const [email, setEmail] = useState('')
