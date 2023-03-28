@@ -2,10 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import CommentsList from '../components/CommentsList'
 import CommentForm from '../components/CommentForm'
+import parse from 'html-react-parser'
+import '../quill.css'
+import Loading from '../components/Loading'
 
 function TournamentPage() {
   const { id } = useParams()
   const [tournament, setTournament] = useState(null)
+
+  const transformImage = (domNode) => {
+    if (domNode.type === 'tag' && domNode.name === 'img') {
+      const imageId = domNode.attribs['data-image-id']
+      if (imageId) {
+        return <img src={imageId} alt="" />
+      }
+    }
+  }
 
   useEffect(() => {
     const fetchTournament = async () => {
@@ -42,14 +54,14 @@ function TournamentPage() {
   }
 
   if (!tournament) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   return (
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold mb-4">{tournament.name}</h1>
-      <p className="text-gray-600 mb-4">{tournament.description}</p>
-      <p className="text-gray-600 mb-4">{tournament.rules}</p>
+      <div className="text-gray-600 mt-2 custom-quill-container">{parse(tournament.description, { replace: transformImage })}</div>
+      <div className="text-gray-600 mt-2 custom-quill-container">{parse(tournament.rules, { replace: transformImage })}</div>
       {new Date(tournament.date).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',

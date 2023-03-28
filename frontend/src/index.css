@@ -57,18 +57,6 @@
   z-index: 2;
 }
 
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
-  display: block;
-  border-radius: 25px;
-}
-
 .modal {
   width: clamp(50%, 700px, 90%);
   height: min(50%, 300px);

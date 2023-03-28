@@ -9,6 +9,8 @@ const {
   upvoteComment,
   addComment,
   upvoteTournamentPost,
+  uploadTournamentImage,
+  upload
 } = require('../controllers/tournamentController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -20,5 +22,6 @@ router.delete('/:id', requireAuth, deleteTournament)
 router.put('/:tournamentId/comments/:commentId/upvote', requireAuth, upvoteComment)
 router.post('/:tournamentId/comments', requireAuth, addComment)
 router.put('/:tournamentId/upvote', requireAuth, upvoteTournamentPost)
+router.post('/upload-image', requireAuth, upload.single('image'), uploadTournamentImage)
 
 module.exports = router

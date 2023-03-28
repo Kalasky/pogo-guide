@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react'
 import TournamentCard from '../components/TournamentCard'
 import TournamentModal from '../components/TournamentModal'
 
-function TournamentsPage() {
+const TournamentsPage = () => {
   const [tournaments, setTournaments] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
+  const [currentTournamentId, setCurrentTournamentId] = useState(null)
 
   useEffect(() => {
     // Fetch tournaments data and set it to the component state
@@ -29,11 +30,14 @@ function TournamentsPage() {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(newTournament),
+      body: JSON.stringify({ ...newTournament }),
     })
     const data = await response.json()
+    setCurrentTournamentId(data._id)
     setTournaments([...tournaments, data])
     setModalOpen(false)
+
+    return data._id
   }
 
   return (
@@ -45,7 +49,12 @@ function TournamentsPage() {
       >
         Create a Tournament
       </button>
-      <TournamentModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onCreateTournament={handleCreateTournament} />
+      <TournamentModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onCreateTournament={handleCreateTournament}
+        currentTournamentId={currentTournamentId}
+      />
       <div>
         {tournaments.map((tournament) => (
           <TournamentCard key={tournament._id} tournament={tournament} />

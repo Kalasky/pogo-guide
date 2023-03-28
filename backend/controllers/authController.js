@@ -35,7 +35,7 @@ const login = async (req, res) => {
     const token = createToken(user._id)
 
     // json object that is sent to the client upon successful login
-    res.status(200).json({ username: user.username, email, token, role: user.role })
+    res.status(200).json({ username: user.username, email, token, role: user.role, likedTournaments: user.likedTournaments })
   } catch (e) {
     res.status(400).json({ message: e.message })
     return
@@ -50,7 +50,7 @@ const signup = async (req, res) => {
 
     const token = createToken(user._id)
 
-    res.status(200).json({ username, email, token, role: user.role })
+    res.status(200).json({ username, email, token, role: user.role, likedTournaments: user.likedTournaments })
   } catch (e) {
     res.status(400).json({ message: e.message })
   }
