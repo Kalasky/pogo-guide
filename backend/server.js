@@ -7,9 +7,6 @@ const cors = require('cors')
 const PORT = process.env.PORT || 8000
 const path = require('path')
 
-const { sendPasswordResetEmail } = require('./controllers/mailer')
-const crypto = require('crypto')
-
 // database imports
 const mongoose = require('mongoose')
 
@@ -20,8 +17,8 @@ const tournamentRoutes = require('./routes/tournamentRoutes')
 
 // middleware
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(express.json({ limit: '50mb' })) // for parsing application/json
+app.use(express.urlencoded({ extended: true, limit: '50mb' })) // for parsing application/x-www-form-urlencoded
 app.use(cors()) // enable CORS for all routes
 app.use('/', (req, res, next) => {
   console.log(`${req.method} request for ${req.url}`)

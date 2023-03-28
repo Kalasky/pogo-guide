@@ -19,6 +19,10 @@ const TournamentSchema = new Schema(
       type: String,
       required: true,
     },
+    coverImage: {
+      type: String,
+      default: '',
+    },
     likes: [
       {
         type: Schema.Types.ObjectId,
@@ -53,6 +57,18 @@ const TournamentSchema = new Schema(
         },
       },
     ],
+    maxPlayers: {
+      type: Number,
+      required: true,
+    },
+    bracketType: {
+      type: String,
+      required: true,
+    },
+    prizePool: {
+      type: String,
+      required: true,
+    },
     isClosed: {
       type: Boolean,
       default: false,

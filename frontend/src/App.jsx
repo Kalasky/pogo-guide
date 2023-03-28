@@ -18,6 +18,7 @@ import ProfileSettings from './pages/ProfileSettings'
 import ResetPassword from './pages/ResetPassword'
 import TournamentPage from './pages/TournamentPage'
 import TournamentsPage from './pages/TournamentsPage'
+import Loading from './components/Loading'
 
 // firebase
 import { initializeApp } from 'firebase/app'
@@ -44,6 +45,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/loading" element={<Loading />} />
           <Route path="/" element={<Home />} />
           <Route path="/legend" element={<Legend />} />
           <Route path="/master" element={<Master />} />

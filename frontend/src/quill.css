@@ -1,0 +1,242 @@
+/* Typography */
+.custom-quill-container h1,
+.custom-quill-container h2,
+.custom-quill-container h3,
+.custom-quill-container h4,
+.custom-quill-container h5,
+.custom-quill-container h6 {
+  margin: 1em 0;
+}
+
+.custom-quill-container p {
+  margin: 0.5em 0;
+}
+
+.custom-quill-container blockquote {
+  margin: 0.5em 0;
+  padding-left: 1em;
+  border-left: 3px solid #ccc;
+}
+
+.custom-quill-container pre {
+  background-color: #f8f8f8;
+  padding: 1em;
+  white-space: pre-wrap;
+  border-radius: 4px;
+}
+
+/* Text Styles */
+.custom-quill-container strong {
+  font-weight: bold;
+}
+
+.custom-quill-container em {
+  font-style: italic;
+}
+
+.custom-quill-container u {
+  text-decoration: underline;
+}
+
+.custom-quill-container del {
+  text-decoration: line-through;
+}
+
+/* Lists */
+.custom-quill-container ul {
+  list-style-type: disc;
+  padding-left: 2em;
+}
+
+.custom-quill-container ol {
+  list-style-type: decimal;
+  padding-left: 2em;
+}
+
+/* Subscript and Superscript */
+.custom-quill-container sub {
+  vertical-align: sub;
+  font-size: smaller;
+}
+
+.custom-quill-container sup {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+/* Direction */
+.custom-quill-container .ql-direction-rtl {
+  direction: rtl;
+}
+
+/* Font Sizes */
+.custom-quill-container .ql-size-small {
+  font-size: 0.75em;
+}
+
+.custom-quill-container .ql-size-large {
+  font-size: 1.5em;
+}
+
+/* Headers */
+.custom-quill-container h1 {
+  font-size: 2.5em;
+}
+
+.custom-quill-container h2 {
+  font-size: 1.5em;
+}
+
+.custom-quill-container h3 {
+  font-size: 1.25em;
+}
+
+.custom-quill-container h4 {
+  font-size: 1em;
+}
+
+.custom-quill-container h5 {
+  font-size: 0.75em;
+}
+
+.custom-quill-container h6 {
+  font-size: 0.5em;
+}
+
+.custom-quill-container .ql-header {
+  margin: 1em 0;
+}
+
+/* Alignment */
+.custom-quill-container .ql-align-center {
+  text-align: center;
+}
+
+.custom-quill-container .ql-align-right {
+  text-align: right;
+}
+
+.custom-quill-container .ql-align-justify {
+  text-align: justify;
+}
+
+/* Images */
+.custom-quill-container img.custom-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.5em auto;
+}
+
+/* Fonts */
+
+.ql-editor .ql-font-Serif {
+  font-family: Georgia, Times New Roman, serif;
+}
+
+.ql-editor .ql-font-Monospace {
+  font-family: Monaco, Courier New, monospace;
+}
+
+.ql-editor .ql-font-Sans-Serif {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.ql-editor .ql-font-Roboto-Mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.ql-editor .ql-font-Alkatra {
+  font-family: 'Alkatra', cursive;
+}
+
+.ql-editor .ql-font-Exo {
+  font-family: 'Exo', sans-serif;
+}
+
+.ql-editor .ql-font-Josefin-Sans {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.ql-editor .ql-font-Chakra-Petch {
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.ql-editor .ql-font-Shadows-Into-Light {
+  font-family: 'Shadows Into Light', cursive;
+}
+
+.ql-editor .ql-font-Lobster-Two {
+  font-family: 'Lobster Two', cursive;
+}
+
+.ql-editor .ql-font-Kalam {
+  font-family: 'Kalam', cursive;
+}
+
+.ql-editor .ql-font-Handlee {
+  font-family: 'Handlee', cursive;
+}
+
+.ql-editor .ql-font-Bad-Script {
+  font-family: 'Bad Script', cursive;
+}
+
+.ql-editor .ql-font-Fira-Code {
+  font-family: 'Fira Code', monospace;
+}
+
+.ql-editor .ql-font-Press-Start-2P {
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Set dropdown font-families */
+.ql-font span[data-label='Roboto Mono']::before {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.ql-font span[data-label='Alkatra']::before {
+  font-family: 'Alkatra', cursive;
+}
+
+.ql-font span[data-label='Exo']::before {
+  font-family: 'Exo', sans-serif;
+}
+
+.ql-font span[data-label='Josefin Sans']::before {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.ql-font span[data-label='Chakra Petch']::before {
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.ql-font span[data-label='Shadows Into Light']::before {
+  font-family: 'Shadows Into Light', cursive;
+}
+
+.ql-font span[data-label='Lobster Two']::before {
+  font-family: 'Lobster Two', cursive;
+}
+
+.ql-font span[data-label='Kalam']::before {
+  font-family: 'Kalam', cursive;
+}
+
+.ql-font span[data-label='Handlee']::before {
+  font-family: 'Handlee', cursive;
+}
+
+.ql-font span[data-label='Bad Script']::before {
+  font-family: 'Bad Script', cursive;
+}
+
+.ql-font span[data-label='Fira Code']::before {
+  font-family: 'Fira Code', monospace;
+}
+
+.ql-font span[data-label='Press Start 2P']::before {
+  font-family: 'Press Start 2P', cursive;
+}
+
+
