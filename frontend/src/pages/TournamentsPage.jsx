@@ -2,11 +2,21 @@
 import React, { useState, useEffect } from 'react'
 import TournamentCard from '../components/TournamentCard'
 import TournamentModal from '../components/TournamentModal'
+import Pagination from '../components/Pagination'
 
 const TournamentsPage = () => {
   const [tournaments, setTournaments] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [currentTournamentId, setCurrentTournamentId] = useState(null)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [tournamentsPerPage] = useState(3)
+
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected
+    setCurrentPage(selectedPage)
+  }
+
+  const tournamentsToDisplay = tournaments.slice(currentPage * tournamentsPerPage, (currentPage + 1) * tournamentsPerPage)
 
   useEffect(() => {
     // Fetch tournaments data and set it to the component state
@@ -56,9 +66,16 @@ const TournamentsPage = () => {
         currentTournamentId={currentTournamentId}
       />
       <div>
-        {tournaments.map((tournament) => (
+        {tournamentsToDisplay.map((tournament) => (
           <TournamentCard key={tournament._id} tournament={tournament} />
         ))}
+        <Pagination
+          pageCount={Math.ceil(tournaments.length / tournamentsPerPage)}
+          currentPage={currentPage + 1}
+          onPageChange={(pageNumber) => handlePageClick({ selected: pageNumber - 1 })}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+        />
       </div>
     </div>
   )

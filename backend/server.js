@@ -6,6 +6,7 @@ const app = express()
 const cors = require('cors')
 const PORT = process.env.PORT || 8000
 const path = require('path')
+const corsAnywhere = require('cors-anywhere')
 
 // database imports
 const mongoose = require('mongoose')
@@ -15,7 +16,17 @@ const videoRoutes = require('./routes/videoRoutes')
 const authRoutes = require('./routes/authRoutes')
 const tournamentRoutes = require('./routes/tournamentRoutes')
 
+// // cors-anywhere
+// const proxy = corsAnywhere.createServer({
+//   originWhitelist: [], // Allow all origins
+// })
+
+
 // middleware
+// app.use((req, res) => {
+//   req.url = req.url.replace(/^\/proxy\//, '/') // Strip '/proxy' from the front of the path.
+//   proxy.emit('request', req, res) // Emit the request event.
+// })
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(express.json({ limit: '50mb' })) // for parsing application/json
 app.use(express.urlencoded({ extended: true, limit: '50mb' })) // for parsing application/x-www-form-urlencoded
