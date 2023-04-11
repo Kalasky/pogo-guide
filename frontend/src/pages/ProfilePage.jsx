@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Footer from '../components/Footer'
 
 const ProfilePage = () => {
   const { authorName } = useParams()

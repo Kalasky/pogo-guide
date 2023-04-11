@@ -275,7 +275,7 @@ const TournamentModal = ({ isOpen, onClose, onCreateTournament }) => {
                   ref={rulesQuillRef}
                 />
                 <input
-                  type="text"
+                  type="number"
                   name="prizePool"
                   value={tournament.prizePool}
                   onChange={handleChange}
@@ -284,7 +284,7 @@ const TournamentModal = ({ isOpen, onClose, onCreateTournament }) => {
                   required
                 />
                 <input
-                  type="text"
+                  type="number"
                   name="maxPlayers"
                   value={tournament.maxPlayers}
                   onChange={handleChange}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
+import Footer from '../components/Footer'
 
 const ProfileSettings = () => {
   // Get author name from URL parameters and the current user from the authentication context
